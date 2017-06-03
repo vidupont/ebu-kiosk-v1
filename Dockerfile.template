@@ -1,0 +1,50 @@
+# ------------------------------------------------------------------------------
+# Proximus EBU Kiosk - Docker Template v1.0
+#
+# 03/06/2017 - Vincent Dupont (vidupont@gmail.com)
+#
+# Base Image :
+#  - resin/raspberrypi3-debian : latest
+#
+# Dependencies:
+# - Python
+#
+# Packages:
+#
+# Info: Resin Base Images : https://docs.resin.io/runtime/resin-base-images/
+# ------------------------------------------------------------------------------
+
+# Base Image from Resin repository
+
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:latest
+
+# Install Python
+RUN apt-get update && apt-get install -y python
+
+# Install Kivy dependencies
+RUN apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
+   pkg-config libgl1-mesa-dev libgles2-mesa-dev \
+   python-setuptools libgstreamer1.0-dev git-core \
+   gstreamer1.0-plugins-good \
+   gstreamer1.0-omx gstreamer1.0-alsa python-dev libmtdev-dev \
+   xclip
+
+# Default Working Directory
+WORKDIR /
+
+# PIP dependencies
+COPY ./python-deps.txt /python-deps.txt
+RUN pip install -r /python-deps.txt
+
+# Install Kivy
+RUN pip install git+https://github.com/kivy/kivy.git@master
+
+
+# Copy all other files into the root directory of the container
+COPY . /
+
+# Enable Systemd
+ENV INITSYSTEM on
+
+# RUN the Main Application
+# CMD ["python","/kivy/kivycatalog/main.py"]

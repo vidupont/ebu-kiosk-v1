@@ -1,0 +1,13 @@
+# ------------------------------------------------------------------------------
+# Proximus EBU Kiosk - Python Dependencies v1.0
+#
+# 03/06/2017 - Vincent Dupont (vidupont@gmail.com)
+#
+# Dependencies:
+# - Cython 0.23
+#
+#
+# Info: https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format
+# ------------------------------------------------------------------------------
+
+Cython==0.23
