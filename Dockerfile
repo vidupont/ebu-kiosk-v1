@@ -16,7 +16,7 @@
 
 # Base Image from Resin repository
 
-FROM rresin/raspberrypi3-debian:latest
+FROM resin/raspberrypi3-debian:latest
 
 # Install Python
 RUN apt-get update && apt-get install -y python
