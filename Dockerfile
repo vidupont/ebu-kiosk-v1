@@ -19,7 +19,7 @@
 FROM resin/raspberrypi3-debian:latest
 
 # Install Python
-RUN apt-get update && apt-get install -y python
+RUN apt-get update && apt-get install -y apt-utils python
 RUN apt-get install -y python-pip python-all python-dev python-xlib
 RUN apt-get install -y python-setuptools python-pygame python-opengl python-enchant
 RUN apt-get install -y python-gst0.10 python-enchant python-dev python-numpy
