@@ -56,6 +56,9 @@ RUN git clone https://github.com/kivy/kivy && \
 # Copy all other files into the root directory of the container
 COPY . /
 
+# Perform last upgrade before running
+RUN apt-get upgrade
+
 # Enable Systemd
 ENV INITSYSTEM on
 
