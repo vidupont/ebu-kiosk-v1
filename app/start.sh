@@ -6,4 +6,5 @@
 # it saves you a LOT of resources avoiding full-desktops envs
 
 rm /tmp/.X0-lock &>/dev/null || true
-startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app --enable-logging
+#startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app --enable-logging
+omxplayer Proximus_intro.mp4 --aspect-mode fill -o alsa:hw:2,0
