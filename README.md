@@ -5,6 +5,11 @@ Owner : Vincent Dupont (SIT/NUC) - vincent.dupont@proximus.com
 Contributors:
   - Henry Boutry (henry.boutry@proximus.com)
 
+Branches:
+  - Master : Main branch with committed
+  - Production : Version running on EBU Kiosk
+  - Playground : testing & new code
+
 Goals:
  - A Physical Kiosk with UI and IoT devices
  - Integration with Proximus EnCo APIs
@@ -19,6 +24,7 @@ Use Cases:
  - FMU Demo
  - Spark room topic display
  - Salesforce stats
+ - Digital Signage information (weather, trains schedules)
 
  Hardware:
  - Raspberry PI 3 as main Kiosk CPU

@@ -4,10 +4,10 @@
 # 03/06/2017 - Vincent Dupont (vidupont@gmail.com)
 #
 # Base Image :
-#  - resin/raspberrypi3-debian : latest
+#  - resin/%%RESIN_MACHINE_NAME%%-node:6 : NodeJs Image
 #
 # Dependencies:
-# - Python
+# -
 #
 # Packages:
 #
@@ -16,51 +16,65 @@
 
 # Base Image from Resin repository
 
-FROM resin/raspberrypi3-debian:latest
+FROM resin/%%RESIN_MACHINE_NAME%%-node:6
 
-# Install Python
-RUN apt-get update && apt-get install -y apt-utils python
-RUN apt-get install -y build-essential
-RUN apt-get install -y python-pip python-all python-dev python-xlib
-RUN apt-get install -y python-setuptools python-pygame python-opengl python-enchant
-RUN apt-get install -y python-gst0.10 python-enchant python-dev python-numpy
+RUN apt-get update && apt-get install -y \
+  apt-utils \
+  clang \
+  xserver-xorg-core \
+  xserver-xorg-input-all \
+  xserver-xorg-video-fbdev \
+  xorg \
+  libdbus-1-dev \
+  libgtk2.0-dev \
+  libnotify-dev \
+  libgnome-keyring-dev \
+  libgconf2-dev \
+  libasound2-dev \
+  libcap-dev \
+  libcups2-dev \
+  libxtst-dev \
+  libxss1 \
+  libnss3-dev \
+  fluxbox \
+  libsmbclient \
+  libssh-4 \
+  fbset \
+  libexpat-dev && rm -rf /var/lib/apt/lists/*
 
-# Install Kivy dependencies
-RUN apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-RUN apt-get install -y pkg-config mesa-common-dev libgl1-mesa-dev libgles2-mesa-dev
-RUN apt-get install -y ibgstreamer1.0-dev libgstreamer1.0-dev
-RUN apt-get install -y gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly
-RUN apt-get install -y gstreamer1.0-omx gstreamer1.0-alsa
-RUN apt-get install -y libmtdev-dev xclip
-
-# Install git-core
-RUN apt-get install -y git-core
+  # Set Xorg and FLUXBOX preferences
+  RUN mkdir ~/.fluxbox
+  RUN echo "xset s off" > ~/.fluxbox/startup && echo "xserver-command=X -s 0 dpms" >> ~/.fluxbox/startup
+  RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
+    && echo "" >> /etc/X11/xinit/xserverrc \
+    && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
 
 # Default Working Directory
-WORKDIR /
+WORKDIR /usr/src/app
 
-# PIP dependencies
-COPY ./python-deps.txt /python-deps.txt
-RUN pip install -r /python-deps.txt
 
-# Install Kivy
-# RUN pip install git+https://github.com/kivy/kivy.git@master
-
-RUN git clone https://github.com/kivy/kivy && \
-    cd kivy && \
-    make && \
-    echo "export PYTHONPATH=$(pwd):\$PYTHONPATH" >> ~/.profile && \
-    . ~/.profile
 
 
 # Copy all other files into the root directory of the container
-COPY . /
+COPY ./app/package.json ./
+
+# Install npm modules for the application
+RUN JOBS=MAX npm install --unsafe-perm --production \
+	&& npm cache clean && node_modules/.bin/electron-rebuild
 
 # Perform last upgrade before running
-RUN apt-get upgrade
+#RUN apt-get upgrade
+
+COPY ./app ./
 
 # Enable Systemd
 ENV INITSYSTEM on
 
+
+# PlatformIO Authentication & start Agent
+RUN pio remote agent start -d /data &
+
+
 # RUN the Main Application
 # CMD ["python","/kivy/kivycatalog/main.py"]
+CMD ["bash", "/usr/src/app/start.sh"]

@@ -5,7 +5,7 @@
 #
 # Dependencies:
 # - Cython 0.23
-#
+# - PlatformIO : Arduino Remote Firmware
 #
 # Info: https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format
 # ------------------------------------------------------------------------------
