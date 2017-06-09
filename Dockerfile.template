@@ -46,7 +46,7 @@ WORKDIR /usr/src/app
 # Copy all other files into the app directory
 COPY ./app ./
 COPY ./startup /STARTUP
-COPY ./arduino /ARDUINO
+#COPY ./arduino /ARDUINO
 
 # Perform last upgrade before running
 RUN apt-get upgrade
