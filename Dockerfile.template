@@ -38,7 +38,7 @@ RUN apt-get install -y omxplayer
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install PlatformIO (Arduino Remote Agent)
-pip install -U platformio
+#pip install -U platformio
 
 # Default Apps Directory
 WORKDIR /usr/src/app
