@@ -7,4 +7,4 @@
 
 rm /tmp/.X0-lock &>/dev/null || true
 #startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app --enable-logging
-omxplayer Proximus_intro.mp4 --aspect-mode fill -o alsa:hw:2,0
+omxplayer /data/medias/ebu-medias/Proximus_intro.mp4 --aspect-mode fill -o alsa:hw:1,0
