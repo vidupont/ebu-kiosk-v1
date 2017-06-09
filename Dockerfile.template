@@ -40,12 +40,13 @@ RUN rm -rf /var/lib/apt/lists/*
 # Install PlatformIO (Arduino Remote Agent)
 pip install -U platformio
 
-# Default Working Directory
+# Default Apps Directory
 WORKDIR /usr/src/app
 
 # Copy all other files into the app directory
 COPY ./app ./
-COPY ./startup /startup
+COPY ./startup /STARTUP
+COPY ./arduino /ARDUINO
 
 # Perform last upgrade before running
 RUN apt-get upgrade
@@ -58,7 +59,7 @@ RUN pio remote agent start -d /data &
 
 
 # Proximus Logo Animation
-CMD ["bash", "/startup/proximus_logo.sh"]
+CMD ["bash", "/STARTUP/proximus_logo.sh"]
 
 # RUN the Main Application
-CMD ["bash", "/usr/src/app/start.sh"]
+CMD ["bash", "/usr/src/app/electronjs/start.sh"]
