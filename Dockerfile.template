@@ -93,7 +93,7 @@ WORKDIR /usr/src/app
 # Copy additional folders
 COPY ./app ./
 COPY ./startup /STARTUP
-COPY ./arduino /ARDUINO
+#COPY ./arduino /ARDUINO
 
 # Perform last upgrade before running
 RUN apt-get upgrade
