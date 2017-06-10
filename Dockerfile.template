@@ -111,4 +111,4 @@ WORKDIR /
 CMD ["bash", "./STARTUP/proximus_logo.sh"]
 
 # RUN the Main Application
-CMD ["bash", "./usr/src/app/electronjs/start.sh"]
+# CMD ["bash", "./usr/src/app/electronjs/start.sh"]
