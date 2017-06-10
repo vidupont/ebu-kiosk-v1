@@ -2,12 +2,15 @@
 # Source: GitHub repository : https://github.com/vidupont/ebu-medias
 
 # Get the Media files from GitHub
-cd /data
 
-if [ -f /data/Proximus_intro.mp4 ]; then
-   git pull https://github.com/vidupont/ebu-medias
+if [ -f $KIOSK_PROXIMUS_ANIM ]; then
+   echo "Proximus Medias already present ... updating."
+   cd $KIOSK_MEDIAS
+   git pull $KIOSK_MEDIAS_GIT
 else
-   git clone https://github.com/vidupont/ebu-medias
+   echo "Proximus Medias not present ... getting them."
+   cd $KIOSK_DATA
+   git clone $KIOSK_MEDIAS_GIT
 fi
 
-omxplayer /data/ebu-medias/Proximus_intro.mp4 --aspect-mode fill
+omxplayer $KIOSK_PROXIMUS_ANIM --aspect-mode fill
