@@ -119,6 +119,7 @@ ENV INITSYSTEM on
 
 # Install and enable services
 COPY /services/platformio.service /etc/systemd/system/platformio.service
+RUN chmod +x /etc/systemd/system/platformio.service
 RUN systemctl enable /etc/systemd/system/platformio.service
 
 # Change Workdir
