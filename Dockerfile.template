@@ -116,14 +116,9 @@ RUN apt-get upgrade
 # Enable Systemd
 ENV INITSYSTEM on
 
-# PlatformIO Authentication & start Agent
-RUN pio remote agent start -d /data
 
 # Change Workdir
 WORKDIR /
 
-# Proximus Logo Animation
-CMD ["bash", "./STARTUP/proximus_logo.sh"]
-
 # RUN the Main Application
-# CMD ["bash", "./usr/src/app/electronjs/start.sh"]
+CMD ["bash", "./STARTUP/start.sh"]
