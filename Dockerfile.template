@@ -114,7 +114,7 @@ RUN apt-get upgrade
 ENV INITSYSTEM on
 
 # PlatformIO Authentication & start Agent
-RUN pio remote agent start -d /data &
+RUN pio remote agent start -d /data
 
 # Change Workdir
 WORKDIR /
