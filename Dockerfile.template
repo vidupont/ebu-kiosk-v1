@@ -32,6 +32,9 @@ RUN apt-get update && apt-get install -y \
   apt-utils \
   clang \
   python-pip \
+  python-dev \
+  python-smbus \
+  python-serial \
 
 # Install Xorg Packages
   xserver-xorg-core \
