@@ -8,9 +8,11 @@
 # Environment Variables and Device variables
 
 
+# Display some information about the Environment
+lsusb
+amixer
 
 # Initialise and start application services
-
 # PlatformIO Agent for Arduino load and remote access
 bash /STARTUP/init_platformio.sh
 
