@@ -9,8 +9,10 @@
 
 
 # Display some information about the Environment
+echo "List of USB Devices detected:"
 lsusb
-amixer
+#echo "Audio Device information:"
+#amixer
 
 # Start the interface application
  # Proximus Animation Logo

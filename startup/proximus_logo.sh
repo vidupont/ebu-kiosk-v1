@@ -15,5 +15,5 @@ fi
 
 if [ "$KIOSK_PROXIMUS_PLAY"="1" ]; then
   echo "Playing Proximus animation."
-  omxplayer $KIOSK_PROXIMUS_ANIM --aspect-mode fill
+  omxplayer $KIOSK_PROXIMUS_ANIM --aspect-mode fill --no-osd --no-keys
 fi
