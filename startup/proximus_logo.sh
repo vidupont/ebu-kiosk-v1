@@ -13,7 +13,7 @@ else
    git clone $KIOSK_MEDIAS_GIT
 fi
 
-if ["$KIOSK_PROXIMUS_PLAY" = 1]; then
+if ["$KIOSK_PROXIMUS_PLAY" = "1"]; then
   echo "Playing Proximus animation."
   omxplayer $KIOSK_PROXIMUS_ANIM --aspect-mode fill
 fi
