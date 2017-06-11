@@ -12,12 +12,6 @@
 lsusb
 amixer
 
-# Initialise and start application services
-# PlatformIO Agent for Arduino load and remote access
-bash /STARTUP/init_platformio.sh
-
-
 # Start the interface application
-
-# Proximus Animation Logo
-bash /STARTUP/proximus_logo.sh
+ # Proximus Animation Logo
+ bash /STARTUP/proximus_logo.sh

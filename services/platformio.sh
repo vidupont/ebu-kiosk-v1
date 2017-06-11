@@ -4,5 +4,5 @@
 
 if [ "$PLATFORMIO_AGENT"="1" ]; then
   echo "Starting the platfform IO agent."
-  nohup pio remote agent start -d $KIOSK_DATA &
+  pio remote agent start -d $KIOSK_DATA &
 fi
