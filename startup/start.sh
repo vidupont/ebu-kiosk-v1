@@ -12,10 +12,10 @@
 # Initialise and start application services
 
 # PlatformIO Agent for Arduino load and remote access
-/STARTUP/init_platformio.sh
+bash /STARTUP/init_platformio.sh
 
 
 # Start the interface application
 
 # Proximus Animation Logo
-/STARTUP/proximus_logo.sh
+bash /STARTUP/proximus_logo.sh
