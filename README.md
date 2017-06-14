@@ -1,6 +1,9 @@
 # Proximus EBU Kiosk v1
 
 Project : Proximus EBU Kiosk Showcase
+Owner : Vincent Dupont (SIT/NUC) - vincent.dupont@proximus.com
+
+Release: "Ring the Bell"
 
 The EBU Kiosk is a Demo & IoT Media Totem which demonstrate Proximus services, technology solutions or simply have fun like the "Ring the Bell" app.
 
@@ -10,7 +13,6 @@ Design / Making by Vincent Dupont (Totem Sketch, Woodworking making, IoT & Physi
 The Project is currently under-development, with basic showcase features.  It will improve with additional apps.
 
 
-Owner : Vincent Dupont (SIT/NUC) - vincent.dupont@proximus.com
 Contributors:
   - Henry Boutry (henry.boutry@proximus.com) - PoC Python WINCAM
 
@@ -39,7 +41,7 @@ Use Cases:
  - Raspberry Pi 3 runs the Human Interfaces & Applications + communications to Cloud
  - Arduino focus on local physical buttons & devices, LEDs , watchdog Raspi 3 , power management of Kiosk
 
- 
+
  Framework:
  - Resin.IO OS & Remote Management
  - Arduino sketch for MCU
