@@ -94,7 +94,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 
 
 # Install PlatformIO (Arduino Remote Agent)
-RUN pip install -U platformio
+# RUN pip install -U platformio
 
 # Install Cython for Kivy
 # RUN pip install -I Cython==0.23
