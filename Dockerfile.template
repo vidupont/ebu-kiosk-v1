@@ -31,7 +31,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:6
 RUN apt-get update && apt-get install -y \
   apt-utils \
   clang \
-  python-pip \
+  #python-pip \
   #python3-pip \
   python-dev \
   python-smbus \
@@ -97,10 +97,10 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 RUN pip install -U platformio
 
 # Install Cython for Kivy
-RUN pip install -I Cython==0.23
+# RUN pip install -I Cython==0.23
 
 # Install Kivy
-RUN pip install git+https://github.com/kivy/kivy.git@master
+# RUN pip install git+https://github.com/kivy/kivy.git@master
 
 # Change Workdir
 WORKDIR /usr/src/app/electronjs
