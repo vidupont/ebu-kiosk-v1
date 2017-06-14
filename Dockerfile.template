@@ -93,7 +93,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 
 
 # Install PlatformIO (Arduino Remote Agent)
-RUN pip install -U platformio
+RUN pip3 install -U platformio
 
 # Change Workdir
 WORKDIR /usr/src/app/electronjs
