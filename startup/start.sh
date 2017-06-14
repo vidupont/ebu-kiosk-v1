@@ -14,6 +14,9 @@ lsusb
 #echo "Audio Device information:"
 #amixer
 
+# Turn off the Screen Saver - Temporary workaround
+xset s off
+
 # Start the interface application
  # Proximus Animation Logo
  bash /STARTUP/proximus_logo.sh

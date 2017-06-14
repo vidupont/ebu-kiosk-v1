@@ -77,9 +77,9 @@ RUN apt-get update && apt-get install -y \
    gstreamer1.0-omx gstreamer1.0-alsa \
    python-dev libmtdev-dev \
    xclip \
-   cython \
-   python3-kivy \
-   python-kivy-examples
+   cython 
+   #python3-kivy \
+   #python-kivy-examples
 
 
 # Does some cleaning here
