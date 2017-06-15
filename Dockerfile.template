@@ -97,7 +97,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Install Pip from source
 WORKDIR /usr/src/app/
-RUN wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
 
 
