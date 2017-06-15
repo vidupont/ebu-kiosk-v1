@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y -q \
     python-docutils \
     #python-pip \
     python-setuptools \
+    wget \
     --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
