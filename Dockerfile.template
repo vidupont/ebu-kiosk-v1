@@ -31,7 +31,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:6
 RUN apt-get update && apt-get install -y \
   apt-utils \
   clang \
-  python-pip \
+  #python-pip \
   #python3-pip \
   python \
   python-dev \
@@ -95,6 +95,11 @@ RUN rm -rf /var/lib/apt/lists/*
 #  && echo "" >> /etc/X11/xinit/xserverrc \
 #  && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
 
+# Install Pip from source
+WORKDIR /usr/src/app/
+RUN wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+RUN python get-pip.py
+
 
 # Install PlatformIO (Arduino Remote Agent)
 # RUN pip install -U platformio
@@ -104,8 +109,10 @@ RUN pip install -I Cython==0.23
 
 # Install Kivy
 # RUN pip install git+https://github.com/kivy/kivy.git@master
-RUN pip install kivy
-
+RUN git clone https://github.com/kivy/kivy
+WORKDIR /usr/src/app/kivy
+RUN python setup.py build
+RUN python setup.py install
 
 
 # Change Workdir
@@ -115,8 +122,8 @@ WORKDIR /usr/src/app/electronjs
 COPY ./app/electronjs/package.json ./
 
 # Install npm modules for the application
-RUN JOBS=MAX npm install --unsafe-perm --production \
-&& npm cache clean && node_modules/.bin/electron-rebuild
+#RUN JOBS=MAX npm install --unsafe-perm --production \
+#&& npm cache clean && node_modules/.bin/electron-rebuild
 
 
 # Change Workdir
@@ -129,7 +136,7 @@ COPY ./services /SERVICES
 #COPY ./arduino /ARDUINO
 
 # Perform last upgrade before running
-RUN apt-get upgrade
+#RUN apt-get upgrade
 
 # Enable Systemd
 ENV INITSYSTEM on
