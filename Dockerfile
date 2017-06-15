@@ -1,49 +1,32 @@
-FROM resin/rpi-raspbian:jessie
+# Dockerfile
+#
+# docker run -i --tty --rm helje5/rpi-swift:3.1.1
+#
+FROM ioft/armhf-ubuntu:16.04
 
-MAINTAINER Michael J. Mitchell <michael@mitchtech.net>
+LABEL maintainer "Helge Heß <me@helgehess.eu>"
 
-RUN apt-get update && apt-get install -y -q \
-    build-essential \
-    cython \
-    git-core \
-    gstreamer1.0-plugins-bad \
-    gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-ugly \
-    gstreamer1.0-alsa \
-    gstreamer1.0-omx \
-    libgl1-mesa-dev \
-    libgles2-mesa-dev \
-    libgstreamer1.0-dev \
-    libsdl2-dev \
-    libsdl2-image-dev \
-    libsdl2-mixer-dev \
-    libsdl2-ttf-dev \
-    pkg-config \
-    python-dev \
-    python-docutils \
-    #python-pip \
-    python-setuptools \
-    wget \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+ARG TARBALL=swift-3.1.1-armv7l-ubuntu-16.04.tar.gz
 
-# Install Pip from source
-WORKDIR /usr/src/app/
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py
+ENV DEBIAN_FRONTEND noninteractive
 
-# Install Cython for Kivy
-RUN pip install -I Cython==0.23
+RUN apt-get update
 
+# Funny: libcurl3 provies libcurl.so.4 :-)
+RUN apt-get install -y \
+  git           \
+  libedit2      \
+  libpython2.7 libcurl3 libxml2 libicu55 \
+  libc6-dev
 
-#RUN pip install git+https://github.com/kivy/kivy.git@master
-RUN git clone https://github.com/kivy/kivy && \
-    cd kivy && \
-    make && \
-    echo "export PYTHONPATH=$(pwd):\$PYTHONPATH" >> ~/.profile && \
-    . ~/.profile
+ADD $TARBALL /usr/
 
-WORKDIR examples/demo/showcase
+RUN bash -c "echo '/usr/lib/swift/linux' > /etc/ld.so.conf.d/swift.conf;\
+             echo '/usr/lib/swift/clang/lib/linux' >> /etc/ld.so.conf.d/swift.conf;\
+             echo '/usr/lib/swift/pm' >> /etc/ld.so.conf.d/swift.conf;\
+             ldconfig"
 
-CMD ["python", "main.py"]
+RUN useradd --create-home --shell /bin/bash swift
+
+USER swift
+WORKDIR /home/swift
