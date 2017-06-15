@@ -22,10 +22,19 @@ RUN apt-get update && apt-get install -y -q \
     pkg-config \
     python-dev \
     python-docutils \
-    python-pip \
+    #python-pip \
     python-setuptools \
     --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
+
+# Install Pip from source
+WORKDIR /usr/src/app/
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py
+
+# Install Cython for Kivy
+RUN pip install -I Cython==0.23
+
 
 #RUN pip install git+https://github.com/kivy/kivy.git@master
 RUN git clone https://github.com/kivy/kivy && \
