@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-01T16:15:20+02:00
+# @Last modified time: 2017-08-01T16:18:33+02:00
 
 
 
@@ -11,6 +11,10 @@
 # Source: GitHub repository : https://github.com/vidupont/ebu-medias
 
 # Check if Env variables are present
+
+if [ "$KIOSK_DATA" == "" ]; then echo "No data directory set ... exiting."; exit 1;
+  else echo "Data directory is set to $KIOSK_DATA."
+fi
 
 if [ "$KIOSK_MEDIAS" == "" ]; then echo "No Medias directory set ... exiting."; exit 1;
   else echo "Medias directory is set to $KIOSK_MEDIAS."
