@@ -1,0 +1,35 @@
+{
+  "version" : 2,
+  "root" : {
+    "id" : "T5Ty}=31",
+    "__class" : "CanvasNode",
+    "parentid" : null,
+    "children" : [
+      {
+        "id" : "T0IgM8d;",
+        "__class" : "FrameNode",
+        "x" : 0,
+        "parentid" : "T5Ty}=31",
+        "width" : 1920,
+        "y" : 0,
+        "deviceType" : "Custom",
+        "type" : "dell-xps",
+        "fillGradient" : {
+          "end" : "rgba(0,0,0,0)",
+          "alpha" : 1,
+          "angle" : 0,
+          "__class" : "LinearGradient",
+          "start" : "black"
+        },
+        "children" : [
+
+        ],
+        "height" : 1080,
+        "fillType" : "color",
+        "targetName" : null,
+        "fillColor" : "rgb(119, 85, 204)",
+        "name" : "Main Screen"
+      }
+    ]
+  }
+}
