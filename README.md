@@ -14,7 +14,9 @@ The Project is currently under-development, with basic showcase features.  It wi
 
 
 Contributors:
+  - Vincent Dupont (vincent.dupont@proximus.com) - Main contributor / coding
   - Henry Boutry (henry.boutry@proximus.com) - PoC Python WINCAM
+  - Nicolas Rollier (nicolas.rollier@proximus.com) - UI/X Design
 
 Branches:
   - Master : Main branch with committed
