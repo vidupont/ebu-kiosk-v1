@@ -1,5 +1,21 @@
+# @Author: Vincent Dupont <vincent>
+# @Date:   2017-06-09T19:18:51+02:00
+# @Email:  vidupont@gmail.com
+# @Filename: proximus_logo.sh
+# @Last modified by:   vincent
+# @Last modified time: 2017-08-01T16:06:52+02:00
+
+
+
 # Load the Proximus Animation into the persistent folder /date
 # Source: GitHub repository : https://github.com/vidupont/ebu-medias
+
+# Check if Env variables are present
+
+if [ "$KIOSK_PROXIMUS_ANIM" == "" ]; then echo "No Animation ... exiting."; exit 1; fi
+if [ "$KIOSK_MEDIAS" == "" ]; then echo "No Medias directory set ... exiting."; exit 1; fi
+if [ "$KIOSK_MEDIAS_GIT" == "" ]; then echo "No Medias Repository set ... exiting."; exit 1; fi
+
 
 # Get the Media files from GitHub
 
