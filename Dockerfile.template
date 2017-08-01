@@ -28,7 +28,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 
 # Install some dependencies
 RUN apt-get update && apt-get install -yq \
-   alsa-utils libasound2-dev apt-utils && \
+   alsa-utils libasound2-dev apt-utils \
 
 # Install OMXPlayer
   omxplayer
