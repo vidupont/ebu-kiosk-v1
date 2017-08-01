@@ -7,7 +7,7 @@
 # PlatformIO is needed for remote arduino firmware updates
 #
 # Base Image :
-#  - resin/%%RESIN_MACHINE_NAME%%-node:6 : NodeJs Image with Python
+#  - resin/%%RESIN_MACHINE_NAME%%-node:slim : NodeJs Image
 #
 # Dependencies:
 # - omxplayer : read local videos
@@ -41,14 +41,14 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # RUN pip3 install -U platformio
 
 # Change Workdir
-WORKDIR /usr/src/app/electronjs
+# WORKDIR /usr/src/app/electronjs
 
 # Copy all other files into the app directory
-COPY ./app/electronjs/package.json ./
+# COPY ./app/electronjs/package.json ./
 
 # Install npm modules for the application
-RUN JOBS=MAX npm install --unsafe-perm --production \
-&& npm cache clean && node_modules/.bin/electron-rebuild
+# RUN JOBS=MAX npm install --unsafe-perm --production \
+# && npm cache clean && node_modules/.bin/electron-rebuild
 
 
 # Change Workdir
