@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-01T16:06:52+02:00
+# @Last modified time: 2017-08-01T16:15:20+02:00
 
 
 
@@ -12,10 +12,17 @@
 
 # Check if Env variables are present
 
-if [ "$KIOSK_PROXIMUS_ANIM" == "" ]; then echo "No Animation ... exiting."; exit 1; fi
-if [ "$KIOSK_MEDIAS" == "" ]; then echo "No Medias directory set ... exiting."; exit 1; fi
-if [ "$KIOSK_MEDIAS_GIT" == "" ]; then echo "No Medias Repository set ... exiting."; exit 1; fi
+if [ "$KIOSK_MEDIAS" == "" ]; then echo "No Medias directory set ... exiting."; exit 1;
+  else echo "Medias directory is set to $KIOSK_MEDIAS."
+fi
 
+if [ "$KIOSK_MEDIAS_GIT" == "" ]; then echo "No Medias Repository set ... exiting."; exit 1;
+  else echo "Medias repository is set to $KIOSK_MEDIAS_GIT."
+fi
+
+if [ "$KIOSK_PROXIMUS_ANIM" == "" ]; then echo "No Animation ... exiting."; exit 1;
+  else echo "Proximus Animation video is set to $KIOSK_PROXIMUS_ANIM."
+fi
 
 # Get the Media files from GitHub
 
