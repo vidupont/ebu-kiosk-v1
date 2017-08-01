@@ -32,8 +32,7 @@ RUN apt-get update && apt-get install -y \
   git-core \
 
 # Install OMXPlayer
-  omxplayer \
-
+  omxplayer
 
 # Does some cleaning here
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
