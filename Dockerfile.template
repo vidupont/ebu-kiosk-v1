@@ -76,7 +76,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY ./applications /APPLICATIONS
 COPY ./startup /STARTUP
 COPY ./services /SERVICES
-COPY ./arduino /ARDUINO
+#COPY ./arduino /ARDUINO
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
 # WORKDIR /STARTUP
