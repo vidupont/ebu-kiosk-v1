@@ -81,7 +81,7 @@ COPY ./services /SERVICES
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
 # WORKDIR /STARTUP
-RUN python get-platformio.py
+RUN python /STARTUP/get-platformio.py
 
 # --- Setup the X Server and Windows manager ---
 RUN mkdir ~/.fluxbox
