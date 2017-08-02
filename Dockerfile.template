@@ -73,7 +73,11 @@ RUN apt-get update && apt-get install -y \
 # Does some cleaning here
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-
+# --- Copy the Container folders ---
+COPY ./app ./
+COPY ./startup /STARTUP
+COPY ./services /SERVICES
+#COPY ./arduino /ARDUINO
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
 # WORKDIR /STARTUP
@@ -87,30 +91,29 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
   && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
 
 
-# Install npm modules for the application
+# --- Install npm modules for the application ---
 #RUN JOBS=MAX npm install --unsafe-perm --production \
 #&& npm cache clean && node_modules/.bin/electron-rebuild
 RUN npm install electron -g
 RUN npm install electron-rebuild -g
 
-# Copy additional folders
-COPY ./app ./
-COPY ./startup /STARTUP
-COPY ./services /SERVICES
-#COPY ./arduino /ARDUINO
 
-# Perform last upgrade before running
+
+# --- Perform last upgrade before running ---
 RUN apt-get upgrade
 
-# Enable Systemd
+# --- Enable Systemd ---
 ENV INITSYSTEM on
 
-# Install and enable services
+# --- Install and enable Services ---
+# 1. PlatformIO remote Agent
 COPY /services/platformio.service /etc/systemd/system/platformio.service
 RUN systemctl enable /etc/systemd/system/platformio.service
 
-# Change Workdir
+
+
+# --- Change Workdir ---
 WORKDIR /
 
-# RUN the Main Application
+# --- RUN the Main Application ---
 CMD ["bash", "./STARTUP/start.sh"]
