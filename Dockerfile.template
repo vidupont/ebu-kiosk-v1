@@ -76,7 +76,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
-#RUN pip3 install -U platformio
+# WORKDIR /STARTUP
+RUN python get-platformio.py
 
 # --- Setup the X Server and Windows manager ---
 RUN mkdir ~/.fluxbox
@@ -86,21 +87,11 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
   && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
 
 
-# Change Workdir
-# WORKDIR /usr/src/app/electronjs
-
-# Copy all other files into the app directory
-# COPY ./app/electronjs/package.json ./
-
 # Install npm modules for the application
 #RUN JOBS=MAX npm install --unsafe-perm --production \
 #&& npm cache clean && node_modules/.bin/electron-rebuild
 RUN npm install electron -g
 RUN npm install electron-rebuild -g
-
-
-# Change Workdir
-WORKDIR /usr/src/app
 
 # Copy additional folders
 COPY ./app ./
