@@ -107,7 +107,7 @@ ENV INITSYSTEM on
 
 # --- Install and enable Services ---
 # 1. PlatformIO remote Agent
-COPY /SERVICES/platformio.service /etc/systemd/system/platformio.service
+COPY /services/platformio.service /etc/systemd/system/platformio.service
 RUN systemctl enable /etc/systemd/system/platformio.service
 
 
