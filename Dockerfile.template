@@ -24,8 +24,7 @@
 # ------------------------------------------------------------------------------
 
 # --- Base Image from Resin repository ---
-#FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
-FROM resin/%%RESIN_MACHINE_NAME%%-node
+FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 
 # --- Install the dependencies ---
 RUN apt-get update && apt-get install -y \
