@@ -30,7 +30,6 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 RUN apt-get update && apt-get install -y \
   apt-utils \
   git-core \
-  #python3-pip \
 
 # 1/ For Wifi-connect
   dnsmasq \
@@ -77,7 +76,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY ./applications /APPLICATIONS
 COPY ./startup /STARTUP
 COPY ./services /SERVICES
-#COPY ./arduino /ARDUINO
+COPY ./arduino /ARDUINO
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
 # WORKDIR /STARTUP
@@ -87,17 +86,13 @@ RUN python /STARTUP/get-platformio.py
 RUN mkdir ~/.fluxbox
 RUN echo "xset s off" > ~/.fluxbox/startup && echo "xserver-command=X -s 0 dpms" >> ~/.fluxbox/startup
 RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
-  && echo "" >> /etc/X11/xinit/xserverrc \
-  && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
-
+ && echo "" >> /etc/X11/xinit/xserverrc \
+ && echo 'exec /usr/bin/X -s 0 dpms -nocursor -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
 
 # --- Install npm modules for the application ---
-#RUN JOBS=MAX npm install --unsafe-perm --production \
-#&& npm cache clean && node_modules/.bin/electron-rebuild
+RUN npm cache clean
 RUN npm install electron -g
 RUN npm install electron-rebuild -g
-
-
 
 # --- Perform last upgrade before running ---
 RUN apt-get upgrade

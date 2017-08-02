@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-01T16:23:13+02:00
+# @Last modified time: 2017-08-02T16:53:56+02:00
 
 
 
@@ -25,6 +25,9 @@ lsusb
 
 # Turn off the Screen Saver - Temporary workaround
 # xset s off
+
+# Cache the Git Repositories
+bash /STARTUP/update_repositories.sh
 
 # Start the interface application
  # Proximus Animation Logo
