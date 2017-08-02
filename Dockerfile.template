@@ -7,7 +7,7 @@
 # PlatformIO is needed for remote arduino firmware updates
 #
 # Base Image :
-#  - resin/%%RESIN_MACHINE_NAME%%-node:slim : NodeJs Image
+#  - resin/%%RESIN_MACHINE_NAME%%-node:slim : Debian + NodeJs Image
 #
 # Dependencies:
 # - omxplayer : read local videos

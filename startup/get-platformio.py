@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: get-platformio.py
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-02T09:18:54+02:00
+# @Last modified time: 2017-08-02T09:49:54+02:00
 
 
 
@@ -121,7 +121,7 @@ def install_pip():
 
 def install_platformio():
     r = None
-    cmd = ["pip", "install", "-U", "platformio"]
+    cmd = ["/usr/local/bin/pip", "install", "-U", "platformio"]
     # cmd = [
     #     "pip", "install", "-U",
     #     "https://github.com/platformio/platformio-core/archive/develop.zip"
