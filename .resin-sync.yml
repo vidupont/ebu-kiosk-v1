@@ -1,0 +1,6 @@
+local_resinos: {}
+uuid: 6a0bb15
+destination: /STARTUP
+ignore:
+  - .git
+  - node_modules/

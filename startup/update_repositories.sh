@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-02T17:02:01+02:00
+# @Last modified time: 2017-08-03T08:06:16+02:00
 
 
 
@@ -17,7 +17,6 @@ if [ "$KIOSK_DATA" == "" ]; then echo "No data directory set ... exiting."; exit
   else echo "Data directory is set to $KIOSK_DATA."
 fi
 
-
 if [ "$KIOSK_MEDIAS" == "" ]; then echo "No Medias directory set ... exiting."; exit 1;
   else echo "Medias directory is set to $KIOSK_MEDIAS."
 fi
@@ -26,10 +25,13 @@ if [ "$KIOSK_MEDIAS_GIT" == "" ]; then echo "No Medias Repository set ... exitin
   else echo "Medias repository is set to $KIOSK_MEDIAS_GIT."
 fi
 
-if [ -f cd $KIOSK_MEDIAS ]; then
+# Update Medias
+if [ -d $KIOSK_MEDIAS ]; then
+  cd $KIOSK_MEDIAS
   echo "Proximus Medias already present ... updating."
   git pull $KIOSK_MEDIAS_GIT
 else
+  cd $KIOSK_DATA
   echo "Proximus Medias not present ... getting them."
   git clone $KIOSK_MEDIAS_GIT
 fi
