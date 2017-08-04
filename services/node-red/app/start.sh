@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-04T23:24:44+02:00
+# @Last modified time: 2017-08-04T23:49:00+02:00
 
 
 
@@ -16,4 +16,4 @@ mkdir -p /data/node-red/user/lib/flows || true
 cp /SERVICES/node-red/app/flows/* /data/node-red/user/lib/flows/
 
 # Start app
-node-red --settings /SERVICES/node-red/app/settings.js
+node-red --settings /SERVICES/node-red/app/settings.js &
