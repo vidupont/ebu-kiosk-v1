@@ -1,6 +1,6 @@
 {
   "name": "ebu-kiosk",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Proximus EBU Digital Totem",
   "main": "main.js",
   "scripts": {
