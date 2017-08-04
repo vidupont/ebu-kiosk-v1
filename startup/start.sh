@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-04T11:52:41+02:00
+# @Last modified time: 2017-08-04T17:45:26+02:00
 
 
 
@@ -43,4 +43,4 @@ umount /dev/shm && mount -t tmpfs shm /dev/shm
 # it saves you a LOT of resources avoiding full-desktops envs
 
 rm /tmp/.X0-lock &>/dev/null || true
-startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/kiosk-menus --enable-logging
+startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging
