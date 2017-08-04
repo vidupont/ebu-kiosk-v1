@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-02T16:53:56+02:00
+# @Last modified time: 2017-08-04T11:52:41+02:00
 
 
 
@@ -30,5 +30,17 @@ lsusb
 bash /STARTUP/update_repositories.sh
 
 # Start the interface application
- # Proximus Animation Logo
- bash /STARTUP/proximus_logo.sh
+# Proximus Animation Logo
+bash /STARTUP/proximus_logo.sh
+
+# By default docker gives us 64MB of shared memory size but to display heavy
+# pages we need more.
+umount /dev/shm && mount -t tmpfs shm /dev/shm
+
+# using local electron module instead of the global electron lets you
+# easily control specific version dependency between your app and electron itself.
+# the syntax below starts an X istance with ONLY our electronJS fired up,
+# it saves you a LOT of resources avoiding full-desktops envs
+
+rm /tmp/.X0-lock &>/dev/null || true
+startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/kiosk-menus --enable-logging

@@ -1,0 +1,43 @@
+{
+  "name": "ebu-kiosk",
+  "version": "1.0",
+  "description": "Proximus EBU Digital Totem",
+  "main": "main.js",
+  "scripts": {
+    "dev": "",
+    "lint": "",
+    "start": "NODE_ENV=production startx ./node_modules/electron/dist/electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidupont/ebu-kiosk-v1.git"
+  },
+  "keywords": [
+    "resin",
+    "io",
+    "electron",
+    "js",
+    "kiosk",
+    "digital",
+    "totem",
+    "proximus",
+    "ebu"
+  ],
+  "dependencies": {
+    "electron": "^1.4.15",
+    "electron-rebuild": "^1.5.7"
+  },
+  "author": "Vincent Dupont",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/vidupont/ebu-kiosk-v1/issues"
+  },
+  "homepage": "https://github.com/vidupont/ebu-kiosk-v1/blob/master/README.md",
+  "jshintConfig": {
+    "esversion": 6,
+    "strict": true
+  },
+  "devDependencies": {
+
+  }
+}
