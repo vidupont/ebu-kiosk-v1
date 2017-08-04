@@ -97,7 +97,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 # RUN npm install electron-rebuild -g
 
 # --- Install NodeJs / ElectronJS
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/electron-api-demos
 #COPY /applications/electron-api-demos/package.json ./
 
 RUN JOBS=MAX npm install --unsafe-perm --production -g \
