@@ -30,7 +30,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 RUN apt-get update && apt-get install -y \
   apt-utils \
   git-core \
-  apk \
+  make gcc g++ python \
 
 # 1/ For Wifi-connect
   dnsmasq \
@@ -107,10 +107,9 @@ RUN JOBS=MAX npm install --unsafe-perm --production -g \
 
 # --- Install node-red
 WORKDIR /usr/src/app
-RUN apk add --no-cache make gcc g++ python && \
-  JOBS=MAX npm install -g node-red node-red-contrib-resinio --production --silent && \
-  apk del make gcc g++ python && \
-  npm cache clean --force && rm -rf /tmp/*
+RUN JOBS=MAX npm install -g node-red node-red-contrib-resinio --production --silent && \
+#  apk del make gcc g++ python && \
+#  npm cache clean --force && rm -rf /tmp/*
 
 
 # --- Perform last upgrade before running ---
