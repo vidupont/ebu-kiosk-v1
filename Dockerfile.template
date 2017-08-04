@@ -30,6 +30,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 RUN apt-get update && apt-get install -y \
   apt-utils \
   git-core \
+  apk \
 
 # 1/ For Wifi-connect
   dnsmasq \
