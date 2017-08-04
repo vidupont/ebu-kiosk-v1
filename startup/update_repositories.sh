@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-04T17:32:51+02:00
+# @Last modified time: 2017-08-04T20:09:11+02:00
 
 
 
@@ -28,7 +28,6 @@ fi
 # Check if local medias directory must be cleaned
 if [ "$KIOSK_MEDIAS_CLEAN" == "1" ]; then echo "Deleting Medias directory.";
   rm -R $KIOSK_MEDIAS
-  exit 1;
 fi
 
 
