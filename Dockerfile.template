@@ -107,7 +107,7 @@ RUN JOBS=MAX npm install --unsafe-perm --production -g \
 
 # --- Install node-red
 WORKDIR /usr/src/app
-RUN JOBS=MAX npm install -g node-red node-red-contrib-resinio --production --silent && \
+RUN JOBS=MAX npm install -g node-red node-red-contrib-resinio --production --silent
 #  apk del make gcc g++ python && \
 #  npm cache clean --force && rm -rf /tmp/*
 
