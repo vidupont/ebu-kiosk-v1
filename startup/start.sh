@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-04T18:36:47+02:00
+# @Last modified time: 2017-08-04T23:37:37+02:00
 
 
 
@@ -38,6 +38,10 @@ bash /STARTUP/proximus_logo.sh
 # By default docker gives us 64MB of shared memory size but to display heavy
 # pages we need more.
 umount /dev/shm && mount -t tmpfs shm /dev/shm
+
+# Start Node-Red Service
+
+bash /SERVICES/node-red/app/start.sh
 
 # using local electron module instead of the global electron lets you
 # easily control specific version dependency between your app and electron itself.
