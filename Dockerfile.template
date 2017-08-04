@@ -49,6 +49,7 @@ RUN apt-get update && apt-get install -y \
  xserver-xorg-input-all \
  xserver-xorg-video-fbdev \
  xorg \
+ xinput-calibrator \
  libdbus-1-dev \
  libgtk2.0-dev \
  libnotify-dev \
@@ -78,6 +79,7 @@ COPY ./applications /usr/src/app
 COPY ./startup /STARTUP
 COPY ./services /SERVICES
 #COPY ./arduino /ARDUINO
+COPY ./configs/99-calibration.conf /usr/share/X11/xorg.conf.d
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
 WORKDIR /STARTUP
