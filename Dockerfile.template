@@ -99,7 +99,7 @@ WORKDIR /usr/src/app
 COPY ./applications/package.json ./
 
 RUN JOBS=MAX npm install --unsafe-perm --production \
-	&& npm cache clean && node_modules/.bin/electron-rebuild
+	&& npm cache verify && node_modules/.bin/electron-rebuild
 
 
 
