@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-03T08:06:16+02:00
+# @Last modified time: 2017-08-04T17:32:51+02:00
 
 
 
@@ -25,11 +25,18 @@ if [ "$KIOSK_MEDIAS_GIT" == "" ]; then echo "No Medias Repository set ... exitin
   else echo "Medias repository is set to $KIOSK_MEDIAS_GIT."
 fi
 
+# Check if local medias directory must be cleaned
+if [ "$KIOSK_MEDIAS_CLEAN" == "1" ]; then echo "Deleting Medias directory.";
+  rm -R $KIOSK_MEDIAS
+  exit 1;
+fi
+
+
 # Update Medias
 if [ -d $KIOSK_MEDIAS ]; then
   cd $KIOSK_MEDIAS
   echo "Proximus Medias already present ... updating."
-  git pull $KIOSK_MEDIAS_GIT
+  git pull origin master
 else
   cd $KIOSK_DATA
   echo "Proximus Medias not present ... getting them."
