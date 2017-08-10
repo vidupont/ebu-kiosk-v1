@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-10T11:08:33+02:00
+# @Last modified time: 2017-08-10T13:06:59+02:00
 
 
 
@@ -31,9 +31,7 @@ lsusb
 # Cache the Git Repositories
 bash /STARTUP/update_repositories.sh
 
-# Start the interface application
-# Proximus Animation Logo
-bash /STARTUP/proximus_logo.sh
+
 
 # By default docker gives us 64MB of shared memory size but to display heavy
 # pages we need more.
@@ -41,6 +39,10 @@ umount /dev/shm && mount -t tmpfs shm /dev/shm
 
 # Start Node-Red Service
 bash /SERVICES/node-red/app/start.sh
+
+# Start the interface application
+# Proximus Animation Logo
+bash /STARTUP/proximus_logo.sh
 
 # using local electron module instead of the global electron lets you
 # easily control specific version dependency between your app and electron itself.
