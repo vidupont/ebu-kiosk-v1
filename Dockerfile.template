@@ -87,6 +87,7 @@ COPY ./startup /STARTUP
 COPY ./services /SERVICES
 #COPY ./arduino /ARDUINO
 COPY ./configs/99-calibration.conf /usr/share/X11/xorg.conf.d
+COPY ./configs/kioskflows.json /SERVICES/node-red
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
 WORKDIR /STARTUP
@@ -113,6 +114,7 @@ RUN JOBS=MAX npm install --unsafe-perm --production -g \
 # --- Install node-red and Nodes
 WORKDIR /usr/src/app
 RUN JOBS=MAX npm install -g --production --silent \
+  serialport \
   node-red node-red-contrib-resinio \
   node-red-dashboard \
   node-red-contrib-spark \
