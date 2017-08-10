@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-10T13:06:59+02:00
+# @Last modified time: 2017-08-10T15:11:43+02:00
 
 
 
@@ -49,6 +49,6 @@ bash /STARTUP/proximus_logo.sh
 # the syntax below starts an X istance with ONLY our electronJS fired up,
 # it saves you a LOT of resources avoiding full-desktops envs
 
-echo "Starting ElectronJS."
-rm /tmp/.X0-lock &>/dev/null || true
-startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging
+#echo "Starting ElectronJS."
+#rm /tmp/.X0-lock &>/dev/null || true
+#startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging
