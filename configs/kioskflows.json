@@ -102,6 +102,12 @@
         }
     },
     {
+        "id": "1067ba05.13894e",
+        "type": "Spark Authentication",
+        "z": "",
+        "name": "Cisco Spark EBU"
+    },
+    {
         "id": "791b4fda.be3488",
         "type": "comment",
         "z": "45549970.f6fb08",
@@ -161,10 +167,9 @@
         "id": "4090bd1a.febcec",
         "type": "link in",
         "z": "c830ccaa.6e1b28",
-        "name": "channelsListin",
+        "name": "channelsList_in",
         "links": [
-            "c0971c16.121f",
-            "3c551a40.8db2b6"
+            "c0971c16.121f"
         ],
         "x": 195,
         "y": 140,
@@ -190,13 +195,12 @@
         "id": "280ff42a.c48f5c",
         "type": "link in",
         "z": "c830ccaa.6e1b28",
-        "name": "messagePostin",
+        "name": "messagePost_in",
         "links": [
-            "d1a280c8.48b4",
-            "e5e81fc6.bb367"
+            "d1a280c8.48b4"
         ],
         "x": 195,
-        "y": 200,
+        "y": 260,
         "wires": [
             []
         ]
@@ -223,7 +227,9 @@
         "type": "link out",
         "z": "45549970.f6fb08",
         "name": "channelsRoomsList_out",
-        "links": [],
+        "links": [
+            "bc045ce3.39e6b"
+        ],
         "x": 415,
         "y": 320,
         "wires": []
@@ -239,7 +245,7 @@
         "syntax": "mustache",
         "template": "[\n  {\n    \"channelId\": \"01\",\n    \"name\": \"Cisco Spark\"\n  },\n  {\n    \"channelId\": \"02\",\n    \"name\": \"Proximus SMS\"\n  }\n]\n",
         "output": "json",
-        "x": 360,
+        "x": 440,
         "y": 140,
         "wires": [
             [
@@ -273,7 +279,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 550,
+        "x": 690,
         "y": 140,
         "wires": [
             [
@@ -288,8 +294,133 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 710,
+        "x": 850,
         "y": 140,
         "wires": []
+    },
+    {
+        "id": "b82145d7.2a19c",
+        "type": "template",
+        "z": "c830ccaa.6e1b28",
+        "name": "List of rooms",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "[\n  {\n    \"roomId\": \"01\",\n    \"name\": \"Room 1\"\n  },\n  {\n    \"roomId\": \"02\",\n    \"name\": \"Room 2\"\n  },\n  {\n    \"roomId\": \"03\",\n    \"name\": \"Room 3\"\n  }\n]\n",
+        "output": "json",
+        "x": 670,
+        "y": 240,
+        "wires": [
+            [
+                "e69bad7f.641d38"
+            ]
+        ]
+    },
+    {
+        "id": "bc045ce3.39e6b",
+        "type": "link in",
+        "z": "c830ccaa.6e1b28",
+        "name": "channelsRoomsList_in",
+        "links": [
+            "d2b5cf94.c6d85"
+        ],
+        "x": 195,
+        "y": 200,
+        "wires": [
+            [
+                "c671ec39.92913"
+            ]
+        ]
+    },
+    {
+        "id": "c671ec39.92913",
+        "type": "function",
+        "z": "c830ccaa.6e1b28",
+        "name": "Check Channel",
+        "func": "if (!req.query.channel) {\n    return null;\n}\nelse {\n    \n    \n    \n    return msg;    \n}\n",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5b695e2b.8a6778",
+        "type": "comment",
+        "z": "45549970.f6fb08",
+        "name": "Initialise",
+        "info": "",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7fbce19e.4036c8",
+        "type": "inject",
+        "z": "45549970.f6fb08",
+        "name": "On Start",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 140,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c0f7abc.51bd25",
+        "type": "Spark API",
+        "z": "c830ccaa.6e1b28",
+        "profileConfig": "1067ba05.13894e",
+        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
+        "resource": "teamMemberships",
+        "method": "getTeamMemberships",
+        "name": "",
+        "x": 440,
+        "y": 440,
+        "wires": [
+            [
+                "498f380d.eca5a"
+            ]
+        ]
+    },
+    {
+        "id": "498f380d.eca5a",
+        "type": "debug",
+        "z": "c830ccaa.6e1b28",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "281865ff.d7e19a",
+        "type": "inject",
+        "z": "c830ccaa.6e1b28",
+        "name": "Start",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "1c0f7abc.51bd25"
+            ]
+        ]
     }
 ]
