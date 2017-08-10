@@ -14,6 +14,20 @@
         "info": ""
     },
     {
+        "id": "93b21c98.58d238",
+        "type": "tab",
+        "label": "Cisco Spark",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "32f4df57.8b3fc8",
+        "type": "tab",
+        "label": "Responses",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "e8c27acb.dfe27",
         "type": "ui_base",
         "theme": {
@@ -102,17 +116,17 @@
         }
     },
     {
-        "id": "1067ba05.13894e",
+        "id": "f0255ada.f184e",
         "type": "Spark Authentication",
         "z": "",
-        "name": "Cisco Spark EBU"
+        "name": "Cisco Spark EBU Totem"
     },
     {
         "id": "791b4fda.be3488",
         "type": "comment",
         "z": "45549970.f6fb08",
         "name": "Messages Channel",
-        "info": "Simple abstraction of messages publishing \nchannels (e.g. Spark).\n\nA channel represents a messaging service:\n  - Spark\n  - SMS\n\nA message can be:\n  - Published\n  - Deleted\n  - Read\n  \nDestination of the message can be:\n  - One destination\n  - Multiple destinations\n  - Broadcast",
+        "info": "Simple abstraction of messages publishing \nchannels (e.g. Spark).\n\nA channel represents a messaging service:\n  - Spark\n  - SMS\n\nA message can be:\n  - Published\n  - Deleted\n  - Read\n  \nDestination of the message can be:\n  - One destination\n  - Multiple destinations\n  - Broadcast\n  - \n  \nRequests:\n  - channels-list : return list of channels\n  - channel-subscribe : join a channel\n  - rooms-list : list of rooms\n  - send-message : post a message\n  - read-message : read a message\n  - read-messages : read multiple messages",
         "x": 140,
         "y": 240,
         "wires": []
@@ -122,12 +136,12 @@
         "type": "http in",
         "z": "45549970.f6fb08",
         "name": "",
-        "url": "/message-post",
+        "url": "/send-message",
         "method": "post",
         "upload": true,
         "swaggerDoc": "",
         "x": 180,
-        "y": 360,
+        "y": 440,
         "wires": [
             [
                 "d1a280c8.48b4"
@@ -188,7 +202,7 @@
             "280ff42a.c48f5c"
         ],
         "x": 415,
-        "y": 360,
+        "y": 440,
         "wires": []
     },
     {
@@ -210,12 +224,12 @@
         "type": "http in",
         "z": "45549970.f6fb08",
         "name": "",
-        "url": "/channel-rooms-list",
+        "url": "/rooms-list",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 190,
-        "y": 320,
+        "x": 160,
+        "y": 400,
         "wires": [
             [
                 "d2b5cf94.c6d85"
@@ -231,7 +245,7 @@
             "bc045ce3.39e6b"
         ],
         "x": 415,
-        "y": 320,
+        "y": 400,
         "wires": []
     },
     {
@@ -376,50 +390,389 @@
         ]
     },
     {
-        "id": "1c0f7abc.51bd25",
-        "type": "Spark API",
-        "z": "c830ccaa.6e1b28",
-        "profileConfig": "1067ba05.13894e",
-        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
-        "resource": "teamMemberships",
-        "method": "getTeamMemberships",
-        "name": "",
-        "x": 440,
-        "y": 440,
+        "id": "308ef95b.6d28ee",
+        "type": "template",
+        "z": "93b21c98.58d238",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Spark Message Posted</h1>\n        <p>id:{{ payload.id }}</p>\n        <p>roomid:{{ payload.roomId }}</p>\n        <p>roomtype{{ payload.roomType }}</p>\n        <p>text:{{ payload.text }}</p>\n        <p>personid:{{ payload.personId }}</p>\n        <p>email:{{ payload.personEmail }}</p>\n        <p>timestamp:{{ payload.created }}</p>\n        \n    </body>\n</html>",
+        "output": "str",
+        "x": 670,
+        "y": 120,
         "wires": [
             [
-                "498f380d.eca5a"
+                "817c6547.a79b68"
             ]
         ]
     },
     {
-        "id": "498f380d.eca5a",
-        "type": "debug",
-        "z": "c830ccaa.6e1b28",
+        "id": "817c6547.a79b68",
+        "type": "http response",
+        "z": "93b21c98.58d238",
         "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "false",
-        "x": 750,
-        "y": 440,
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 120,
         "wires": []
     },
     {
-        "id": "281865ff.d7e19a",
+        "id": "245f5840.f1514",
+        "type": "Spark API",
+        "z": "93b21c98.58d238",
+        "profileConfig": "f0255ada.f184e",
+        "apiUrl": "http://127.0.0.1:1880/api/cisco_spark_v1.json",
+        "resource": "messages",
+        "method": "createMessage",
+        "name": "",
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "9f18a7c4.c2baa8",
+                "308ef95b.6d28ee"
+            ]
+        ]
+    },
+    {
+        "id": "20a846b.965063a",
         "type": "inject",
-        "z": "c830ccaa.6e1b28",
-        "name": "Start",
+        "z": "93b21c98.58d238",
+        "name": "Send Message",
         "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
+        "payload": "{\"body\":{\"roomId\":\"Y2lzY29zcGFyazovL3VzL1JPT00vZThjOWM4YjAtN2NlNi0xMWU3LTg2MjYtOGRmZDc1NTVjZTAy\",\"text\":\"Message from NodeRed\"}}",
+        "payloadType": "json",
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 110,
-        "y": 440,
+        "x": 140,
+        "y": 180,
         "wires": [
             [
-                "1c0f7abc.51bd25"
+                "245f5840.f1514"
+            ]
+        ]
+    },
+    {
+        "id": "9f18a7c4.c2baa8",
+        "type": "debug",
+        "z": "93b21c98.58d238",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1330,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "d51b2048.5911b8",
+        "type": "comment",
+        "z": "93b21c98.58d238",
+        "name": "Post a Message",
+        "info": "",
+        "x": 120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "20dbaf33.27ae08",
+        "type": "link in",
+        "z": "93b21c98.58d238",
+        "name": "spark_publish_message",
+        "links": [],
+        "x": 75,
+        "y": 120,
+        "wires": [
+            [
+                "245f5840.f1514"
+            ]
+        ]
+    },
+    {
+        "id": "f0f6ac96.b79e4",
+        "type": "Spark API",
+        "z": "93b21c98.58d238",
+        "profileConfig": "f0255ada.f184e",
+        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
+        "resource": "people",
+        "method": "getMe",
+        "name": "",
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "e9f05b8c.cf0fd8"
+            ]
+        ]
+    },
+    {
+        "id": "347061a7.f402d6",
+        "type": "inject",
+        "z": "93b21c98.58d238",
+        "name": "Request",
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "f0f6ac96.b79e4"
+            ]
+        ]
+    },
+    {
+        "id": "3f7305cc.7906ea",
+        "type": "http in",
+        "z": "45549970.f6fb08",
+        "name": "",
+        "url": "/channel-subscribe",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f7a69175.368678",
+        "type": "http in",
+        "z": "45549970.f6fb08",
+        "name": "",
+        "url": "/read-messages",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa72e316.acd878",
+        "type": "http in",
+        "z": "45549970.f6fb08",
+        "name": "",
+        "url": "/read-message",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "181719fb.cbf5b6",
+        "type": "Spark API",
+        "z": "93b21c98.58d238",
+        "profileConfig": "f0255ada.f184e",
+        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
+        "resource": "rooms",
+        "method": "getRooms",
+        "name": "",
+        "x": 390,
+        "y": 600,
+        "wires": [
+            [
+                "9f18a7c4.c2baa8"
+            ]
+        ]
+    },
+    {
+        "id": "3ef16998.a6509e",
+        "type": "comment",
+        "z": "93b21c98.58d238",
+        "name": "People requests",
+        "info": "",
+        "x": 120,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "7cc9b18d.947c78",
+        "type": "inject",
+        "z": "93b21c98.58d238",
+        "name": "Request",
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 120,
+        "y": 600,
+        "wires": [
+            [
+                "181719fb.cbf5b6"
+            ]
+        ]
+    },
+    {
+        "id": "d6dea1c8.8589",
+        "type": "Spark API",
+        "z": "93b21c98.58d238",
+        "profileConfig": "f0255ada.f184e",
+        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
+        "resource": "messages",
+        "method": "getMessages",
+        "name": "",
+        "x": 410,
+        "y": 680,
+        "wires": [
+            [
+                "9f18a7c4.c2baa8"
+            ]
+        ]
+    },
+    {
+        "id": "1aea145b.de5c9c",
+        "type": "inject",
+        "z": "93b21c98.58d238",
+        "name": "Request",
+        "topic": "",
+        "payload": "{\"roomId\":\"Y2lzY29zcGFyazovL3VzL1JPT00vZThjOWM4YjAtN2NlNi0xMWU3LTg2MjYtOGRmZDc1NTVjZTAy\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "d6dea1c8.8589"
+            ]
+        ]
+    },
+    {
+        "id": "e9f05b8c.cf0fd8",
+        "type": "Spark Payload Parser",
+        "z": "93b21c98.58d238",
+        "name": "",
+        "parsers": [
+            {
+                "key": "emails",
+                "as": ""
+            },
+            {
+                "key": "displayName",
+                "as": ""
+            },
+            {
+                "key": "nickName",
+                "as": ""
+            },
+            {
+                "key": "lastName",
+                "as": ""
+            },
+            {
+                "key": "firstName",
+                "as": ""
+            },
+            {
+                "key": "avatar",
+                "as": ""
+            }
+        ],
+        "x": 820,
+        "y": 400,
+        "wires": [
+            [
+                "9f18a7c4.c2baa8"
+            ]
+        ]
+    },
+    {
+        "id": "ebeaa46.fdc1bd8",
+        "type": "Spark API",
+        "z": "93b21c98.58d238",
+        "profileConfig": "f0255ada.f184e",
+        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
+        "resource": "people",
+        "method": "getPerson",
+        "name": "",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "e9f05b8c.cf0fd8"
+            ]
+        ]
+    },
+    {
+        "id": "ea9898c5.2cab5",
+        "type": "inject",
+        "z": "93b21c98.58d238",
+        "name": "Request",
+        "topic": "",
+        "payload": "{\"personId\":\"Y2lzY29zcGFyazovL3VzL1BFT1BMRS9iZTFiOGQwZS0wYTY2LTRlMDQtYjA4MC03ZDJkZDMwZjQ2OWM\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 120,
+        "y": 400,
+        "wires": [
+            [
+                "ebeaa46.fdc1bd8"
+            ]
+        ]
+    },
+    {
+        "id": "517fa4e3.92b8f4",
+        "type": "comment",
+        "z": "93b21c98.58d238",
+        "name": "Room requests",
+        "info": "",
+        "x": 120,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "e379d9d6.156e",
+        "type": "Spark API",
+        "z": "93b21c98.58d238",
+        "profileConfig": "f0255ada.f184e",
+        "apiUrl": "http://192.168.0.79/api/cisco_spark_v1.json",
+        "resource": "people",
+        "method": "getPeople",
+        "name": "",
+        "x": 390,
+        "y": 460,
+        "wires": [
+            [
+                "e9f05b8c.cf0fd8"
+            ]
+        ]
+    },
+    {
+        "id": "30308081.6cd54",
+        "type": "inject",
+        "z": "93b21c98.58d238",
+        "name": "Request",
+        "topic": "",
+        "payload": "{\"email\":\"vincent.dupont@proximus.com\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 120,
+        "y": 460,
+        "wires": [
+            [
+                "e379d9d6.156e"
             ]
         ]
     }
