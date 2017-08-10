@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-04T23:49:25+02:00
+# @Last modified time: 2017-08-10T09:37:40+02:00
 
 
 
@@ -20,13 +20,13 @@
 # Display some information about the Environment
 echo "List of USB Devices detected:"
 lsusb
-echo "Local Display"
+#echo "Local Display"
 
 #echo "Audio Device information:"
 #amixer
 
 # Turn off the Screen Saver
-xset s off
+#xset s off
 
 # Cache the Git Repositories
 bash /STARTUP/update_repositories.sh
