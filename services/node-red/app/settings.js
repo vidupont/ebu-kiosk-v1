@@ -1,4 +1,15 @@
 /**
+ * @Author: Vincent Dupont <vincent>
+ * @Date:   2017-08-03T10:08:36+02:00
+ * @Email:  vidupont@gmail.com
+ * @Filename: settings.js
+ * @Last modified by:   vincent
+ * @Last modified time: 2017-08-10T10:01:21+02:00
+ */
+
+
+
+/**
  * Copyright 2013, 2016 IBM Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +31,7 @@
 
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
-    uiPort: process.env.PORT || 80,
+    uiPort: process.env.RED_PORT || 80,
 
     // By default, the Node-RED UI accepts connections on all IPv4 interfaces.
     // The following property can be used to listen on a specific interface. For
@@ -105,8 +116,8 @@ module.exports = {
     adminAuth: {
         type: "credentials",
         users: [{
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
+            username: process.env.RED_USERNAME,
+            password: process.env.RED_PASSWORD,
             permissions: "*"
         }],
         default: {
