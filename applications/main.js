@@ -4,9 +4,9 @@
  * @Email:  vidupont@gmail.com
  * @Filename: main.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-08-10T11:53:28+02:00
+ * @Last modified time: 2017-08-10T13:28:33+02:00
  */
-
+const electron = require('electron');
 const path = require('path');
 
 const { app, BrowserWindow } = electron;
