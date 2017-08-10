@@ -105,7 +105,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 
 # --- Install NodeJs / ElectronJS
 WORKDIR /usr/src/app/
-COPY /applications/kiosk-menus/package.json ./
+COPY /applications/package.json ./
 
 RUN JOBS=MAX npm install --unsafe-perm --production -g \
 	&& npm cache verify && node_modules/.bin/electron-rebuild
