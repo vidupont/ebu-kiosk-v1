@@ -4,7 +4,7 @@
  * @Email:  vidupont@gmail.com
  * @Filename: settings.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-08-10T10:01:21+02:00
+ * @Last modified time: 2017-08-10T10:47:51+02:00
  */
 
 
@@ -75,11 +75,11 @@ module.exports = {
 
     // By default, all user data is stored in the Node-RED install directory. To
     // use a different location, the following property can be used
-    userDir: '/data/node-red/user/',
+    userDir: process.env.RED_DATA + '/user/',
 
     // Node-RED scans the `nodes` directory in the install directory to find nodes.
     // The following property can be used to specify an additional directory to scan.
-    nodesDir: '/data/node-red/nodes/',
+    nodesDir: process.env.RED_DATA +'/nodes/',
 
     // By default, the Node-RED UI is available at http://localhost:1880/
     // The following property can be used to specifiy a different root path.
@@ -201,20 +201,20 @@ module.exports = {
     editorTheme: {
         page: {
             title: "resin.io Node-RED",
-            favicon: "/usr/src/app/assets/favicon.ico"
+            favicon: process.env.RED_ROOT + "/app/assets/favicon.ico"
         },
         header: {
             title: "resin.io Node-RED",
-            image: "/usr/src/app/assets/resin_logo.png", // or null to remove image
+            image: process.env.RED_ROOT + "/app/assets/resin_logo.png", // or null to remove image
             url: "https://resin.io"
         },
         deployButton: {
             type: "simple",
             label: "Deploy",
-            icon: "/usr/src/app/assets/favicon.ico" // or null to remove image
+            icon: process.env.RED_ROOT + "/app/assets/favicon.ico" // or null to remove image
         },
         login: {
-            image: "/usr/src/app/assets/resin_logo.png" // a 256x256 image
+            image: process.env.RED_ROOT + "/app/assets/resin_logo.png" // a 256x256 image
         }
     },
     // Configure the logging output

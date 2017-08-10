@@ -110,7 +110,7 @@ COPY /applications/package.json ./
 RUN JOBS=MAX npm install --unsafe-perm --production -g \
 	&& npm cache verify && node_modules/.bin/electron-rebuild
 
-# --- Install node-red
+# --- Install node-red and Nodes
 WORKDIR /usr/src/app
 RUN JOBS=MAX npm install -g --production --silent \
   node-red node-red-contrib-resinio \

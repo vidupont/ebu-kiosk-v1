@@ -47,4 +47,5 @@ Use Cases:
  Framework:
  - Resin.IO OS & Remote Management
  - Arduino sketch for MCU
- - Python & Kivy framework
+ - NodeJs and ElectronJS
+ - Node-Red
