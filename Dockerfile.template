@@ -115,7 +115,7 @@ WORKDIR /usr/src/app
 RUN JOBS=MAX npm install -g --production --silent \
   node-red node-red-contrib-resinio \
   node-red-contrib-spark \
-  node-red-node-arduino \
+  # node-red-node-arduino \
   && \
   npm cache clean --force && rm -rf /tmp/*
 
