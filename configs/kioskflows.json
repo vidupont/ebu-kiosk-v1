@@ -1,0 +1,295 @@
+[
+    {
+        "id": "45549970.f6fb08",
+        "type": "tab",
+        "label": "Requests Router",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c830ccaa.6e1b28",
+        "type": "tab",
+        "label": "Messages",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e8c27acb.dfe27",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "791b4fda.be3488",
+        "type": "comment",
+        "z": "45549970.f6fb08",
+        "name": "Messages Channel",
+        "info": "Simple abstraction of messages publishing \nchannels (e.g. Spark).\n\nA channel represents a messaging service:\n  - Spark\n  - SMS\n\nA message can be:\n  - Published\n  - Deleted\n  - Read\n  \nDestination of the message can be:\n  - One destination\n  - Multiple destinations\n  - Broadcast",
+        "x": 140,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "819273b.8af321",
+        "type": "http in",
+        "z": "45549970.f6fb08",
+        "name": "",
+        "url": "/message-post",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "d1a280c8.48b4"
+            ]
+        ]
+    },
+    {
+        "id": "d36dfee3.ae55",
+        "type": "http in",
+        "z": "45549970.f6fb08",
+        "name": "",
+        "url": "/channels-list",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "c0971c16.121f"
+            ]
+        ]
+    },
+    {
+        "id": "c0971c16.121f",
+        "type": "link out",
+        "z": "45549970.f6fb08",
+        "name": "channelsList_out",
+        "links": [
+            "4090bd1a.febcec"
+        ],
+        "x": 415,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4090bd1a.febcec",
+        "type": "link in",
+        "z": "c830ccaa.6e1b28",
+        "name": "channelsListin",
+        "links": [
+            "c0971c16.121f",
+            "3c551a40.8db2b6"
+        ],
+        "x": 195,
+        "y": 140,
+        "wires": [
+            [
+                "b9bdf85b.1e5d4"
+            ]
+        ]
+    },
+    {
+        "id": "d1a280c8.48b4",
+        "type": "link out",
+        "z": "45549970.f6fb08",
+        "name": "messagePost_out",
+        "links": [
+            "280ff42a.c48f5c"
+        ],
+        "x": 415,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "280ff42a.c48f5c",
+        "type": "link in",
+        "z": "c830ccaa.6e1b28",
+        "name": "messagePostin",
+        "links": [
+            "d1a280c8.48b4",
+            "e5e81fc6.bb367"
+        ],
+        "x": 195,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "98b6cdff.bd5e68",
+        "type": "http in",
+        "z": "45549970.f6fb08",
+        "name": "",
+        "url": "/channel-rooms-list",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 320,
+        "wires": [
+            [
+                "d2b5cf94.c6d85"
+            ]
+        ]
+    },
+    {
+        "id": "d2b5cf94.c6d85",
+        "type": "link out",
+        "z": "45549970.f6fb08",
+        "name": "channelsRoomsList_out",
+        "links": [],
+        "x": 415,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b9bdf85b.1e5d4",
+        "type": "template",
+        "z": "c830ccaa.6e1b28",
+        "name": "List of Channels",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "[\n  {\n    \"channelId\": \"01\",\n    \"name\": \"Cisco Spark\"\n  },\n  {\n    \"channelId\": \"02\",\n    \"name\": \"Proximus SMS\"\n  }\n]\n",
+        "output": "json",
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "e69bad7f.641d38"
+            ]
+        ]
+    },
+    {
+        "id": "e69bad7f.641d38",
+        "type": "change",
+        "z": "c830ccaa.6e1b28",
+        "name": "Set Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 140,
+        "wires": [
+            [
+                "405bfd1c.b43334"
+            ]
+        ]
+    },
+    {
+        "id": "405bfd1c.b43334",
+        "type": "http response",
+        "z": "c830ccaa.6e1b28",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 140,
+        "wires": []
+    }
+]
