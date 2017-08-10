@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-10T09:37:40+02:00
+# @Last modified time: 2017-08-10T11:08:33+02:00
 
 
 
@@ -40,7 +40,6 @@ bash /STARTUP/proximus_logo.sh
 umount /dev/shm && mount -t tmpfs shm /dev/shm
 
 # Start Node-Red Service
-
 bash /SERVICES/node-red/app/start.sh
 
 # using local electron module instead of the global electron lets you
@@ -48,5 +47,6 @@ bash /SERVICES/node-red/app/start.sh
 # the syntax below starts an X istance with ONLY our electronJS fired up,
 # it saves you a LOT of resources avoiding full-desktops envs
 
+echo "Starting ElectronJS."
 rm /tmp/.X0-lock &>/dev/null || true
 startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging

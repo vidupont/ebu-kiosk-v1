@@ -3,12 +3,14 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-10T10:15:40+02:00
+# @Last modified time: 2017-08-10T11:07:48+02:00
 
 
 
 # Load the Proximus Animation into the persistent folder /date
 # Source: GitHub repository : https://github.com/vidupont/ebu-medias
+
+echo "Proximus Animation intro."
 
 # Check if Env variables are present
 if [ "$KIOSK_PROXIMUS_ANIM" = "" ]; then echo "No Animation ... exiting."; exit 1;
