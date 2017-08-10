@@ -1,4 +1,8 @@
-local_resinos: {}
+local_resinos:
+  app-name: ebu-kiosk-v1
+  build-triggers:
+    - Dockerfile: f9a83e0150f1a9537b8d31d1393bdf1a2afa58924a58061f17bc021f19ac649c
+  environment: []
 uuid: 6a0bb15
 destination: /STARTUP
 ignore:
