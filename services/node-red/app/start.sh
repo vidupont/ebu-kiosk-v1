@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-10T16:46:52+02:00
+# @Last modified time: 2017-08-10T17:05:42+02:00
 
 
 
@@ -21,4 +21,4 @@ cp /SERVICES/node-red/app/flows/* /data/node-red/user/lib/flows/
 mv /SERVICES/node-red/kioskflows.json /data/node-red/user/
 
 # Start app
-node-red --settings /SERVICES/node-red/app/settings.js &
+node-red --settings /SERVICES/node-red/app/settings.js #&
