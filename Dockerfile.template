@@ -112,10 +112,12 @@ RUN JOBS=MAX npm install --unsafe-perm --production -g \
 
 # --- Install node-red
 WORKDIR /usr/src/app
-RUN JOBS=MAX npm install -g node-red node-red-contrib-resinio --production --silent && \
-#  apk del make gcc g++ python && \
-npm cache clean --force && rm -rf /tmp/*
-
+RUN JOBS=MAX npm install -g --production --silent \
+  node-red node-red-contrib-resinio \
+  node-red-contrib-spark \
+  node-red-node-arduino \
+  && \
+  npm cache clean --force && rm -rf /tmp/*
 
 # --- Perform last upgrade before running ---
 # RUN apt-get upgrade
