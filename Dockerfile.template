@@ -29,7 +29,7 @@
 # ------------------------------------------------------------------------------
 
 # *** Base Image from Resin repository ***
-FROM resin/%%RESIN_MACHINE_NAME%%-node:slim AS builder
+FROM resin/%%RESIN_MACHINE_NAME%%-node AS builder
 
 
 # *** Build the first image layer ***
