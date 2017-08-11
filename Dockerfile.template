@@ -29,86 +29,87 @@
 # ------------------------------------------------------------------------------
 
 # *** Base Image from Resin repository ***
-FROM resin/%%RESIN_MACHINE_NAME%%-node AS builder
+# FROM resin/%%RESIN_MACHINE_NAME%%-node AS builder
+# FROM resin/%%RESIN_MACHINE_NAME%% AS builder
 
 
 # *** Build the first image layer ***
 
 # --- Install NodeJs / ElectronJS
-WORKDIR /usr/src/app/
-COPY /applications/package.json ./
+# WORKDIR /usr/src/app/
+#COPY /applications/package.json ./
 
-RUN JOBS=MAX npm install --unsafe-perm --production -g \
-	&& npm cache verify && node_modules/.bin/electron-rebuild
+#RUN JOBS=MAX npm install --unsafe-perm --production -g \
+#	&& npm cache verify && node_modules/.bin/electron-rebuild
 
 # --- Install node-red and Nodes
-WORKDIR /usr/src/app
-RUN JOBS=MAX npm install -g --production --silent \
-  serialport \
-  node-red node-red-contrib-resinio \
-  node-red-dashboard \
-  node-red-contrib-spark \
-  node-red-contrib-gpio \
-  node-red-contrib-blynk-websockets \
-  # node-red-node-arduino \
-  && \
-  npm cache clean --force && rm -rf /tmp/*
+#WORKDIR /usr/src/app
+#RUN JOBS=MAX npm install -g --production --silent \
+#  serialport \
+#  node-red node-red-contrib-resinio \
+#  node-red-dashboard \
+#  node-red-contrib-spark \
+#  node-red-contrib-gpio \
+#  node-red-contrib-blynk-websockets \
+#  # node-red-node-arduino \
+#  && \
+#  npm cache clean --force && rm -rf /tmp/*
 
 # *** Local final Image from Resin repository ***
-FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
-#FROM resin/rpi-raspbian
+#FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
+FROM resin/%%RESIN_MACHINE_NAME%%
 
-COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
+#COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
 # --- Install the dependencies ---
-RUN apt-get update && apt-get install -y \
-  apt-utils \
-  git-core \
-  # make gcc g++ \
-  python \
+#RUN apt-get update && apt-get install -y \
+#  apt-utils \
+#  git-core \
+#  # make gcc g++ \
+#  python \
 
 # 1/ For Wifi-connect
-  dnsmasq \
-  hostapd \
-  iproute2 \
-  iw \
-  libdbus-1-dev \
-  libexpat-dev \
-  rfkill \
+#  dnsmasq \
+#  hostapd \
+#  iproute2 \
+#  iw \
+#  libdbus-1-dev \
+#  libexpat-dev \
+#  rfkill \
 
 # 2/ coffee-script
-  coffeescript \
+#  coffeescript \
 
 # 3/ For ElectronJS
- clang \
- xserver-xorg-core \
- xserver-xorg-input-all \
- xserver-xorg-video-fbdev \
- xorg \
- xinput-calibrator \
- libdbus-1-dev \
- libgtk2.0-dev \
- libnotify-dev \
- libgnome-keyring-dev \
- libgconf2-dev \
- libasound2-dev \
- libcap-dev \
- libcups2-dev \
- libxtst-dev \
- libxss1 \
- libnss3-dev \
- fluxbox \
- libsmbclient \
- libssh-4 \
- fbset \
- libexpat-dev \
+# clang \
+# xserver-xorg-core \
+# xserver-xorg-input-all \
+# xserver-xorg-video-fbdev \
+# xorg \
+# xinput-calibrator \
+# libdbus-1-dev \
+# libgtk2.0-dev \
+# libnotify-dev \
+# libgnome-keyring-dev \
+# libgconf2-dev \
+# libasound2-dev \
+# libcap-dev \
+# libcups2-dev \
+# libxtst-dev \
+# libxss1 \
+# libnss3-dev \
+# fluxbox \
+# libsmbclient \
+# libssh-4 \
+# fbset \
+# libexpat-dev \
 
 # 4/ OMXPlayer
-  omxplayer
+#  omxplayer
 
 
 # Does some cleaning here
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+#RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # --- Copy the Container folders ---
 WORKDIR /
@@ -124,8 +125,8 @@ COPY /applications/package.json ./
 
 
 # --- Install PlatformIO (Arduino Remote Agent) ---
-WORKDIR /STARTUP
-RUN python /STARTUP/get-platformio.py
+#WORKDIR /STARTUP
+#RUN python /STARTUP/get-platformio.py
 
 # --- Setup the X Server and Windows manager ---
 RUN mkdir ~/.fluxbox
