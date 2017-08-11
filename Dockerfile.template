@@ -55,8 +55,8 @@ RUN JOBS=MAX npm install -g --production --silent \
   npm cache clean --force && rm -rf /tmp/*
 
 # *** Local final Image from Resin repository ***
-#FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
-FROM resin/rpi-raspbian
+FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
+#FROM resin/rpi-raspbian
 
 COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
