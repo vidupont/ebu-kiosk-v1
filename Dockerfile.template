@@ -57,7 +57,7 @@
 
 # *** Local final Image from Resin repository ***
 #FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
-FROM resin/%%RESIN_MACHINE_NAME%%
+FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
 #COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
