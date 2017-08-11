@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-04T20:09:11+02:00
+# @Last modified time: 2017-08-11T08:50:19+02:00
 
 
 
@@ -13,9 +13,23 @@
 # Check if Env variables are present
 # Then Get the files from GitHub when needed
 
+
+
+echo "Updating Medias directory."
+
 if [ "$KIOSK_DATA" == "" ]; then echo "No data directory set ... exiting."; exit 1;
   else echo "Data directory is set to $KIOSK_DATA."
 fi
+
+echo "Photos Gallery."
+if [ "$KIOSK_GALLERY" == "" ]; then
+      echo "Photos Gallery folder not set, creating into /data/gallery.";
+      mkdir $KIOSK_DATA/gallery
+  else
+      echo "Gallery directory is set to $KIOSK_GALLERY."
+      mkdir $KIOSK_GALLERY
+fi
+
 
 if [ "$KIOSK_MEDIAS" == "" ]; then echo "No Medias directory set ... exiting."; exit 1;
   else echo "Medias directory is set to $KIOSK_MEDIAS."

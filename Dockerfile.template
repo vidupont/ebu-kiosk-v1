@@ -28,8 +28,33 @@
 # Info: Resin Base Images : https://docs.resin.io/runtime/resin-base-images/
 # ------------------------------------------------------------------------------
 
-# --- Base Image from Resin repository ---
+# *** Base Image from Resin repository ***
+FROM resin/%%RESIN_MACHINE_NAME%%-node:slim AS builder
+
+
+# *** Build the first image layer ***
+
+# --- Install NodeJs / ElectronJS
+
+RUN JOBS=MAX npm install --unsafe-perm --production -g \
+	&& npm cache verify && node_modules/.bin/electron-rebuild
+
+# --- Install node-red and Nodes
+WORKDIR /usr/src/app
+RUN JOBS=MAX npm install -g --production --silent \
+  serialport \
+  node-red node-red-contrib-resinio \
+  node-red-dashboard \
+  node-red-contrib-spark \
+  node-red-contrib-gpio \
+  node-red-contrib-blynk-websockets \
+  # node-red-node-arduino \
+  && \
+  npm cache clean --force && rm -rf /tmp/*
+
+# *** Local final Image from Resin repository ***
 FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
+COPY --from=builder COPY --from=buildstep /usr/src/app/node_modules /usr/src/app/node_modules
 
 # --- Install the dependencies ---
 RUN apt-get update && apt-get install -y \
@@ -89,6 +114,10 @@ COPY ./services /SERVICES
 COPY ./configs/99-calibration.conf /usr/share/X11/xorg.conf.d
 COPY ./configs/kioskflows.json /SERVICES/node-red
 
+WORKDIR /usr/src/app/
+COPY /applications/package.json ./
+
+
 # --- Install PlatformIO (Arduino Remote Agent) ---
 WORKDIR /STARTUP
 RUN python /STARTUP/get-platformio.py
@@ -104,25 +133,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 # RUN npm install electron -g
 # RUN npm install electron-rebuild -g
 
-# --- Install NodeJs / ElectronJS
-WORKDIR /usr/src/app/
-COPY /applications/package.json ./
 
-RUN JOBS=MAX npm install --unsafe-perm --production -g \
-	&& npm cache verify && node_modules/.bin/electron-rebuild
-
-# --- Install node-red and Nodes
-WORKDIR /usr/src/app
-RUN JOBS=MAX npm install -g --production --silent \
-  serialport \
-  node-red node-red-contrib-resinio \
-  node-red-dashboard \
-  node-red-contrib-spark \
-  node-red-contrib-gpio \
-  node-red-contrib-blynk-websockets \
-  # node-red-node-arduino \
-  && \
-  npm cache clean --force && rm -rf /tmp/*
 
 # --- Perform last upgrade before running ---
 # RUN apt-get upgrade
