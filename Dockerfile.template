@@ -56,7 +56,7 @@ RUN JOBS=MAX npm install -g --production --silent \
 
 # *** Local final Image from Resin repository ***
 FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
-COPY --from=builder COPY --from=buildstep /usr/src/app/node_modules /usr/src/app/node_modules
+COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
 # --- Install the dependencies ---
 RUN apt-get update && apt-get install -y \
