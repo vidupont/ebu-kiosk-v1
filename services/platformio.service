@@ -1,0 +1,10 @@
+[Unit]
+Description=Platform IO Remote Agent
+
+[Service]
+EnvironmentFile=/etc/docker.env
+Type=simple
+ExecStart=/SERVICES/platformio.sh
+
+[Install]
+WantedBy=basic.target
