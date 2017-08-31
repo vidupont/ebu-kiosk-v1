@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Proximus EBU Kiosk - Docker Template v1.0
 #
-# 01/08/2017 - Vincent Dupont (vidupont@gmail.com)
+# 31/08/2017 - Vincent Dupont (vidupont@gmail.com)
 #
 # The Kiosk User Interface is based on Framer / Nodejs
 # PlatformIO is needed for remote arduino firmware updates
@@ -17,7 +17,16 @@
 # Frameworks:
 # - Nodejs : Javascript engine
 # - Node-Red : flows based scripting engine
-# - Electronjs : desktop like app framework
+# -
+#
+# Folders:
+# - /app/nodejs : root folder for nodejs framework
+# - /app/node-red : root folder for node-red framework
+# - /app/backend : root folder for apps backend / scripts
+# - /app/frontend : root folder for apps frontend
+# - /scripts : various scripts (at boot time)
+# - /data/flows : persistent node-red flows
+# - /data/medias : medias files cache
 #
 # GitHub:
 #
@@ -25,24 +34,38 @@
 # - https://github.com/vidupont/ebu-kiosk-arduino-v1 : arduino sketch
 # - https://github.com/vidupont/ebu-medias : media files to be cached
 #
+# Notes:
+# - Start with ResinIO base image 'slim', might be interesting to optimise the size
+# - Do we really need the lxde or fluxbox if we run Chromium in kiosk mode
+# - DBUS ... error message from Chromium , to be checked
+# - Redo touchscreen calibration
+#
 # Info: Resin Base Images : https://docs.resin.io/runtime/resin-base-images/
 # ------------------------------------------------------------------------------
 
 # *** Base Image from Resin repository ***
-FROM resin/%%RESIN_MACHINE_NAME%%-node AS builder
+FROM resin/%%RESIN_MACHINE_NAME%%-node:slim AS builder
+
+# *** Base folders ***
+ENV root_app /app
+ENV root_nodejs /app/nodejs
+ENV root_node-red /app/node-red
+ENV root_platformio /app/platformio
+ENV root_backend /app/backend
+ENV root_frontend /app/frontend
+ENV root_scripts /scripts
+ENV root_node-red_flows /data/flows
+ENV root_medias /data/medias
 
 
 # *** Build the first image layer ***
 
-# --- Install NodeJs / ElectronJS
-WORKDIR /usr/src/app/
-COPY /applications/package.json ./
+# --- Install the Package.json
+WORKDIR ${root_app}
+COPY /config/package.json .
 
-RUN JOBS=MAX npm install --unsafe-perm --production -g \
-	&& npm cache verify && node_modules/.bin/electron-rebuild
-
-# --- Install node-red and Nodes
-WORKDIR /usr/src/app
+# --- Install node-red and required nodes
+WORKDIR ${root_app}
 RUN JOBS=MAX npm install -g --production --silent \
   serialport \
   node-red node-red-contrib-resinio \
@@ -50,102 +73,79 @@ RUN JOBS=MAX npm install -g --production --silent \
   node-red-contrib-spark \
   node-red-contrib-gpio \
   node-red-contrib-blynk-websockets \
-  # node-red-node-arduino \
-  && \
-  npm cache clean --force && rm -rf /tmp/*
+  node-red-node-arduino
+
+# --- Clean npm cache and tmp files
+RUN	npm cache clean --force && rm -rf /tmp/*
 
 # *** Local final Image from Resin repository ***
-FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
-COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
+# FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
+# COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
-# --- Install the dependencies ---
+
+# *** Install additional packages ***
+COPY /config/raspi-ui.list /etc/apt/sources.list.d
+
 RUN apt-get update && apt-get install -y \
   apt-utils \
   git-core \
-  make gcc g++ python \
+	python \
 
 # 1/ For Wifi-connect
-  dnsmasq \
-  hostapd \
-  iproute2 \
-  iw \
-  libdbus-1-dev \
-  libexpat-dev \
-  rfkill \
+#  dnsmasq \
+#  hostapd \
+#  iproute2 \
+#  iw \
+#  libdbus-1-dev \
+#  libexpat-dev \
+#  rfkill \
 
-# 2/ coffee-script
-  coffeescript \
+# 2/ Minimum Xorg environment
+	 xorg \
+	 lxde \
+#	 fluxbox \
 
-# 3/ For ElectronJS
- clang \
- xserver-xorg-core \
- xserver-xorg-input-all \
- xserver-xorg-video-fbdev \
- xorg \
- xinput-calibrator \
- libdbus-1-dev \
- libgtk2.0-dev \
- libnotify-dev \
- libgnome-keyring-dev \
- libgconf2-dev \
- libasound2-dev \
- libcap-dev \
- libcups2-dev \
- libxtst-dev \
- libxss1 \
- libnss3-dev \
- fluxbox \
- libsmbclient \
- libssh-4 \
- fbset \
- libexpat-dev \
-
+# 3/ Chromium
+	chromium-browser \
+	rpi-chromium-mods \
 # 4/ OMXPlayer
   omxplayer
 
+# --- Upgrade packages ---
+RUN apt-get upgrade
 
-# Does some cleaning here
+# --- Clean apt cache and tmp files
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# --- Copy the Container folders ---
+
+# *** Copy the Container folders ***
 WORKDIR /
-COPY ./applications /usr/src/app
-COPY ./startup /STARTUP
-COPY ./services /SERVICES
-#COPY ./arduino /ARDUINO
-COPY ./configs/99-calibration.conf /usr/share/X11/xorg.conf.d
-COPY ./configs/kioskflows.json /SERVICES/node-red
+COPY /scripts ${root_scripts}
+#COPY /services/platformio ${root_platformio}
+COPY /services/node-red ${root_node-red}
 
-WORKDIR /usr/src/app/
-COPY /applications/package.json ./
+# --- Touchscreen calibration ---
+COPY ./config/99-calibration.conf /usr/share/X11/xorg.conf.d
+
+# --- Backend flows ---
+COPY ./applications/kioskflows.json ${root_backend}
 
 
-# --- Install PlatformIO (Arduino Remote Agent) ---
-WORKDIR /STARTUP
-RUN python /STARTUP/get-platformio.py
+# *** Install PlatformIO (Arduino Remote Agent) ***
+WORKDIR ${root_platformio}
+RUN python ${root_scripts}/get-platformio.py
+COPY /services/platformio/platformio.service /etc/systemd/system/platformio.service
 
-# --- Setup the X Server and Windows manager ---
-RUN mkdir ~/.fluxbox
-RUN echo "xset s off" > ~/.fluxbox/startup && echo "xserver-command=X -s 0 dpms" >> ~/.fluxbox/startup
-RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
- && echo "" >> /etc/X11/xinit/xserverrc \
- && echo 'exec /usr/bin/X -s 0 dpms -nolisten tcp "$@"' >> /etc/X11/xinit/xserverrc
 
-# --- Install npm modules for the application ---
-# RUN npm install electron -g
-# RUN npm install electron-rebuild -g
+# *** Setup X Environment ***
+COPY /config/lxde-autostart /etc/xdg/lxsession/LXDE/autostart
 
 
 
-# --- Perform last upgrade before running ---
-# RUN apt-get upgrade
-
-# --- Enable Systemd ---
+# *** Enable Systemd ***
 ENV INITSYSTEM on
 
-# --- Install and enable Services ---
-# 1. PlatformIO remote Agent
-COPY /services/platformio/platformio.service /etc/systemd/system/platformio.service
+# *** Install and enable Services ***
 RUN systemctl enable /etc/systemd/system/platformio.service
 
 
@@ -153,4 +153,4 @@ RUN systemctl enable /etc/systemd/system/platformio.service
 WORKDIR /
 
 # --- RUN the Main Application ---
-CMD ["bash", "./STARTUP/start.sh"]
+CMD ["bash", "/scripts/start.sh"]
