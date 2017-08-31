@@ -49,12 +49,12 @@ FROM resin/%%RESIN_MACHINE_NAME%%-node AS builder
 # *** Base folders ***
 ENV root_app /app
 ENV root_nodejs /app/nodejs
-ENV root_node-red /app/node-red
+ENV root_nodered /app/nodered
 ENV root_platformio /app/platformio
 ENV root_backend /app/backend
 ENV root_frontend /app/frontend
 ENV root_scripts /scripts
-ENV root_node-red_flows /data/flows
+ENV root_nodered_flows /data/flows
 ENV root_medias /data/medias
 
 
@@ -120,7 +120,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /
 COPY /scripts ${root_scripts}
 #COPY /services/platformio ${root_platformio}
-COPY /services/node-red ${root_node-red}
+COPY /services/node-red ${root_nodered}
 
 # --- Touchscreen calibration ---
 COPY ./config/99-calibration.conf /usr/share/X11/xorg.conf.d
