@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "",
     "lint": "",
-    "start": "NODE_ENV=production startx ./node_modules/electron/dist/electron ."
+    "start": ""
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,6 @@
     "ebu"
   ],
   "dependencies": {
-    "electron": "^1.4.15",
-    "electron-rebuild": "^1.5.7"
   },
   "author": "Vincent Dupont",
   "license": "",
