@@ -73,7 +73,7 @@ RUN JOBS=MAX npm install -g --production --silent \
   node-red-dashboard \
   node-red-contrib-spark \
   node-red-contrib-gpio \
-  node-red-contrib-blynk-websockets \Ò
+  node-red-contrib-blynk-websockets \
   node-red-node-arduino
 
 # --- Clean npm cache and tmp files
