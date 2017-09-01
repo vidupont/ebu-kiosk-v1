@@ -56,6 +56,7 @@ ENV root_frontend /app/frontend
 ENV root_scripts /scripts
 ENV root_nodered_data /data/nodered
 ENV root_medias /data/medias
+ENV root_framework_semanticui /
 
 
 # *** Build the first image layer ***
@@ -75,6 +76,11 @@ RUN JOBS=MAX npm install -g --production --silent \
   node-red-contrib-gpio \
   node-red-contrib-blynk-websockets \
   node-red-node-arduino
+
+# --- Install Semantic UI ---
+RUN JOBS=MAX npm install -g --production --silent gulp
+RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
+
 
 # --- Clean npm cache and tmp files
 RUN	npm cache clean --force && rm -rf /tmp/*
