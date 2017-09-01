@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T20:22:40+02:00
+# @Last modified time: 2017-09-01T20:37:37+02:00
 
 
 
@@ -58,10 +58,33 @@ bash ${root_scripts}/proximus_logo.sh
 
 # if KIOSK_MODE not set to "admin" then ...
 # Start the X Session with limited app frontend
-startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
-       --kiosk \
-       --window-position=$KIOSK_X,$KIOSK_Y \
-       --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
-       $KIOSK_URL
+# if KIOSK_MODE is set to "browser", chromium is started with URL bar
 
-# if KIOSK_MODE set to "admin" then ...
+case $KIOSK_MODE in
+  admin|ADMIN) ;;
+
+  kiosk|KIOSK)
+    startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+         --kiosk \
+         --cast-initial-screen-height $KIOSK_HEIGHT \
+         --cast-initial-screen-width $KIOSK_WIDTH \
+         --enable-gpu-compositing \
+         --enable-accelerated-2d-canvas \
+
+         --window-position=$KIOSK_X,$KIOSK_Y \
+         --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
+         $KIOSK_URL
+         ;;
+
+  browser|BROWSER)
+    startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+       --cast-initial-screen-height $KIOSK_HEIGHT \
+       --cast-initial-screen-width $KIOSK_WIDTH \
+       --enable-gpu-compositing \
+       --enable-accelerated-2d-canvas \
+
+       --window-position=$KIOSK_X,$KIOSK_Y \
+       --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT
+       ;;
+  *) ;;
+esac
