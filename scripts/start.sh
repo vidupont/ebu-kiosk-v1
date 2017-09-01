@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T18:39:44+02:00
+# @Last modified time: 2017-09-01T18:46:04+02:00
 
 
 
@@ -58,6 +58,6 @@ bash ${root_scripts}/proximus_logo.sh
 
 # if KIOSK_MODE not set to "admin" then ...
 # Start the X Session with limited app frontend
-startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --kiosk www.google.be
+startx "/usr/bin/chromium-browser --disable-infobars --no-sandbox --kiosk www.google.be"
 
 # if KIOSK_MODE set to "admin" then ...
