@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T20:37:37+02:00
+# @Last modified time: 2017-09-01T20:53:12+02:00
 
 
 
@@ -70,7 +70,6 @@ case $KIOSK_MODE in
          --cast-initial-screen-width $KIOSK_WIDTH \
          --enable-gpu-compositing \
          --enable-accelerated-2d-canvas \
-
          --window-position=$KIOSK_X,$KIOSK_Y \
          --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
          $KIOSK_URL
@@ -82,7 +81,6 @@ case $KIOSK_MODE in
        --cast-initial-screen-width $KIOSK_WIDTH \
        --enable-gpu-compositing \
        --enable-accelerated-2d-canvas \
-
        --window-position=$KIOSK_X,$KIOSK_Y \
        --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT
        ;;
