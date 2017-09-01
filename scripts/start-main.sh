@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T22:04:01+02:00
+# @Last modified time: 2017-09-01T22:31:15+02:00
 
 
 
@@ -16,6 +16,8 @@
 # Do not use static variable into the Docker, consider dynamic behaviour of
 # Environment Variables and Device variables
 
+# Set DISPLAY var
+DISPLAY=:0
 
 # Display some information about the Environment
 echo "List of USB Devices detected:"
@@ -63,6 +65,8 @@ bash ${root_scripts}/proximus_logo.sh
 # Start the X Session with limited app frontend
 # if KIOSK_MODE is set to "browser", chromium is started with URL bar
 
+echo "Starting Kiosk Front-End:"
+
 case $KIOSK_MODE in
   admin|ADMIN) ;;
 
@@ -77,7 +81,7 @@ case $KIOSK_MODE in
          --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
          $KIOSK_URL"
 
-    echo "Starting frontend:"
+    echo "-- Kiosk mode:"
     echo " $FRONTEND"
     startx $FRONTEND
     ;;
@@ -96,9 +100,18 @@ case $KIOSK_MODE in
         --window-position=$KIOSK_X,$KIOSK_Y \
         --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT"
 
-     echo "Starting frontend:"
+     echo "-- Browser mode:"
      echo " $FRONTEND"
      startx $FRONTEND
      ;;
-  *) ;;
+
+  test)
+    echo "-- Test mode:"
+    startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+    --window-position=$KIOSK_X,$KIOSK_Y \
+    --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT
+    ;;
+  *)
+     echo "-- Kiosk Mode not set or incorrect."
+  ;;
 esac
