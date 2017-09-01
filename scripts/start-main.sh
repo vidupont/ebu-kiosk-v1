@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T22:31:15+02:00
+# @Last modified time: 2017-09-01T22:41:44+02:00
 
 
 
@@ -15,6 +15,8 @@
 # All the parameters come from the ENV injected via Resin.IO Portal
 # Do not use static variable into the Docker, consider dynamic behaviour of
 # Environment Variables and Device variables
+
+echo "** Starting Main Script **"
 
 # Set DISPLAY var
 DISPLAY=:0
@@ -110,6 +112,7 @@ case $KIOSK_MODE in
     startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
     --window-position=$KIOSK_X,$KIOSK_Y \
     --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT
+    --kiosk www.google.be
     ;;
   *)
      echo "-- Kiosk Mode not set or incorrect."
