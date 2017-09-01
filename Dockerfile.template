@@ -114,6 +114,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #	 fluxbox \
 
 # 3/ Chromium
+	lsb-release \
 	chromium-browser \
 	rpi-chromium-mods \
 # 4/ OMXPlayer

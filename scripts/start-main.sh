@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T21:30:09+02:00
+# @Last modified time: 2017-09-01T22:04:01+02:00
 
 
 
@@ -84,11 +84,15 @@ case $KIOSK_MODE in
 
   browser|BROWSER)
     FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
-        --kiosk \
         --ignore-gpu-blacklist \
+        --enable-accelerated-2d-canvas \
+        --enable-gpu-rasterization \
+        --enable-gpu-compositing \
+        --enable-native-gpu-memory-buffers \
+        --enable-gpu-memory-buffer-compositor-resources \
+        --enable-gpu-memory-buffer-video-frames \
         --cast-initial-screen-height $KIOSK_HEIGHT \
         --cast-initial-screen-width $KIOSK_WIDTH \
-        --enable-accelerated-2d-canvas \
         --window-position=$KIOSK_X,$KIOSK_Y \
         --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT"
 
