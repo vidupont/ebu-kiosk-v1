@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T22:41:44+02:00
+# @Last modified time: 2017-09-01T22:51:26+02:00
 
 
 
@@ -76,8 +76,8 @@ case $KIOSK_MODE in
     FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
          --kiosk \
          --ignore-gpu-blacklist \
-         --cast-initial-screen-height $KIOSK_HEIGHT \
-         --cast-initial-screen-width $KIOSK_WIDTH \
+         --cast-initial-screen-height=$KIOSK_HEIGHT \
+         --cast-initial-screen-width=$KIOSK_WIDTH \
          --enable-accelerated-2d-canvas \
          --window-position=$KIOSK_X,$KIOSK_Y \
          --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
@@ -97,8 +97,8 @@ case $KIOSK_MODE in
         --enable-native-gpu-memory-buffers \
         --enable-gpu-memory-buffer-compositor-resources \
         --enable-gpu-memory-buffer-video-frames \
-        --cast-initial-screen-height $KIOSK_HEIGHT \
-        --cast-initial-screen-width $KIOSK_WIDTH \
+        --cast-initial-screen-height=$KIOSK_HEIGHT \
+        --cast-initial-screen-width=$KIOSK_WIDTH \
         --window-position=$KIOSK_X,$KIOSK_Y \
         --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT"
 
@@ -111,7 +111,7 @@ case $KIOSK_MODE in
     echo "-- Test mode:"
     startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
     --window-position=$KIOSK_X,$KIOSK_Y \
-    --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT
+    --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
     --kiosk www.google.be
     ;;
   *)
