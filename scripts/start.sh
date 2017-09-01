@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T17:05:35+02:00
+# @Last modified time: 2017-09-01T17:18:46+02:00
 
 
 
@@ -54,5 +54,10 @@ bash ${root_scripts}/proximus_logo.sh
 #startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging
 
 
+# Check which Session to be started, based on ENV "KIOSK_MODE"
+
+# if KIOSK_MODE not set to "admin" then ...
 # Start the X Session with limited app frontend
-startx
+startx /usr/bin/chromium-browser
+
+# if KIOSK_MODE set to "admin" then ...
