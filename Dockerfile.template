@@ -79,7 +79,7 @@ RUN JOBS=MAX npm install -g --production --silent \
 
 # --- Install Semantic UI ---
 RUN JOBS=MAX npm install -g --production --silent gulp
-RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
+#RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
 
 
 # --- Clean npm cache and tmp files
