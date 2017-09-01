@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T11:22:09+02:00
+# @Last modified time: 2017-09-01T17:05:35+02:00
 
 
 
@@ -52,3 +52,7 @@ bash ${root_scripts}/proximus_logo.sh
 #echo "Starting ElectronJS."
 #rm /tmp/.X0-lock &>/dev/null || true
 #startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging
+
+
+# Start the X Session with limited app frontend
+startx
