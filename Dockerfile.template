@@ -127,7 +127,7 @@ COPY /services/node-red ${root_nodered}
 COPY ./config/99-calibration.conf /usr/share/X11/xorg.conf.d
 
 # --- Backend flows ---
-COPY ./applications/kioskflows.json ${root_backend}
+#COPY ./applications/kioskflows.json ${root_backend}
 
 
 # *** Install PlatformIO (Arduino Remote Agent) ***
