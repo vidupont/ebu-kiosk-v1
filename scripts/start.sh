@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-10T15:11:43+02:00
+# @Last modified time: 2017-09-01T11:22:09+02:00
 
 
 
@@ -29,7 +29,7 @@ lsusb
 #xset s off
 
 # Cache the Git Repositories
-bash /STARTUP/update_repositories.sh
+bash ${root_scripts}/update_repositories.sh
 
 
 
@@ -38,11 +38,11 @@ bash /STARTUP/update_repositories.sh
 umount /dev/shm && mount -t tmpfs shm /dev/shm
 
 # Start Node-Red Service
-bash /SERVICES/node-red/app/start.sh
+#bash ${root_nodered}/app/start.sh
 
 # Start the interface application
 # Proximus Animation Logo
-bash /STARTUP/proximus_logo.sh
+bash ${root_scripts}/proximus_logo.sh
 
 # using local electron module instead of the global electron lets you
 # easily control specific version dependency between your app and electron itself.

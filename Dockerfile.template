@@ -54,7 +54,7 @@ ENV root_platformio /app/platformio
 ENV root_backend /app/backend
 ENV root_frontend /app/frontend
 ENV root_scripts /scripts
-ENV root_nodered_flows /data/flows
+ENV root_nodered_data /data/nodered
 ENV root_medias /data/medias
 
 
@@ -118,6 +118,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # *** Copy the Container folders ***
 WORKDIR /
+RUN mkdir -p ${root_backend}
 COPY /scripts ${root_scripts}
 #COPY /services/platformio ${root_platformio}
 COPY /services/node-red ${root_nodered}
