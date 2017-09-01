@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T20:53:12+02:00
+# @Last modified time: 2017-09-01T21:30:09+02:00
 
 
 
@@ -26,7 +26,20 @@ lsusb
 #amixer
 
 # Turn off the Screen Saver
-#xset s off
+
+
+if [ "$KIOSK_SCREENSAVER" == "off" ]; then
+  echo "Setting Screensaver off."
+  xset s off
+  xset -dpms
+  xset s noblank
+else
+  echo "Setting Screensaver on."
+
+
+fi
+
+
 
 # Cache the Git Repositories
 bash ${root_scripts}/update_repositories.sh
@@ -44,16 +57,6 @@ umount /dev/shm && mount -t tmpfs shm /dev/shm
 # Proximus Animation Logo
 bash ${root_scripts}/proximus_logo.sh
 
-# using local electron module instead of the global electron lets you
-# easily control specific version dependency between your app and electron itself.
-# the syntax below starts an X istance with ONLY our electronJS fired up,
-# it saves you a LOT of resources avoiding full-desktops envs
-
-#echo "Starting ElectronJS."
-#rm /tmp/.X0-lock &>/dev/null || true
-#startx /usr/src/app/node_modules/electron/dist/electron /usr/src/app/ --enable-logging
-
-
 # Check which Session to be started, based on ENV "KIOSK_MODE"
 
 # if KIOSK_MODE not set to "admin" then ...
@@ -64,25 +67,34 @@ case $KIOSK_MODE in
   admin|ADMIN) ;;
 
   kiosk|KIOSK)
-    startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+    FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
          --kiosk \
+         --ignore-gpu-blacklist \
          --cast-initial-screen-height $KIOSK_HEIGHT \
          --cast-initial-screen-width $KIOSK_WIDTH \
-         --enable-gpu-compositing \
          --enable-accelerated-2d-canvas \
          --window-position=$KIOSK_X,$KIOSK_Y \
          --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
-         $KIOSK_URL
-         ;;
+         $KIOSK_URL"
+
+    echo "Starting frontend:"
+    echo " $FRONTEND"
+    startx $FRONTEND
+    ;;
 
   browser|BROWSER)
-    startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
-       --cast-initial-screen-height $KIOSK_HEIGHT \
-       --cast-initial-screen-width $KIOSK_WIDTH \
-       --enable-gpu-compositing \
-       --enable-accelerated-2d-canvas \
-       --window-position=$KIOSK_X,$KIOSK_Y \
-       --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT
-       ;;
+    FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+        --kiosk \
+        --ignore-gpu-blacklist \
+        --cast-initial-screen-height $KIOSK_HEIGHT \
+        --cast-initial-screen-width $KIOSK_WIDTH \
+        --enable-accelerated-2d-canvas \
+        --window-position=$KIOSK_X,$KIOSK_Y \
+        --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT"
+
+     echo "Starting frontend:"
+     echo " $FRONTEND"
+     startx $FRONTEND
+     ;;
   *) ;;
 esac

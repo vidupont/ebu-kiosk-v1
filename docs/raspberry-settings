@@ -1,6 +1,0 @@
-# The settings must be passed via the ResinIO Env Variables
-
-gpu_mem=256
-dispmanx_offline=1
-dtoverlay=vc4-fkms-v3d
-dtparam=audio=on
