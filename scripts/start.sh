@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T20:09:06+02:00
+# @Last modified time: 2017-09-01T20:22:40+02:00
 
 
 
@@ -58,7 +58,7 @@ bash ${root_scripts}/proximus_logo.sh
 
 # if KIOSK_MODE not set to "admin" then ...
 # Start the X Session with limited app frontend
-startx /usr/bin/chromium-browser --disable-infobars --no-sandbox \
+startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
        --kiosk \
        --window-position=$KIOSK_X,$KIOSK_Y \
        --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
