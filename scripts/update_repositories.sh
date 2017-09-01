@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: proximus_logo.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-08-11T08:50:19+02:00
+# @Last modified time: 2017-09-01T11:50:35+02:00
 
 
 
@@ -24,10 +24,10 @@ fi
 echo "Photos Gallery."
 if [ "$KIOSK_GALLERY" == "" ]; then
       echo "Photos Gallery folder not set, creating into /data/gallery.";
-      mkdir $KIOSK_DATA/gallery
+      mkdir -p $KIOSK_DATA/gallery
   else
       echo "Gallery directory is set to $KIOSK_GALLERY."
-      mkdir $KIOSK_GALLERY
+      mkdir -p $KIOSK_GALLERY
 fi
 
 
