@@ -103,7 +103,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # 2/ Minimum Xorg environment
 	 xorg \
-	 lxde \
+#	 lxde \
 #	 fluxbox \
 
 # 3/ Chromium
@@ -139,7 +139,8 @@ COPY /services/platformio/platformio.service /etc/systemd/system/platformio.serv
 # *** Setup X Environment ***
 COPY /config/lxde-autostart /etc/xdg/lxsession/LXDE/autostart
 
-
+# *** Setup Kiosk front-end User ***
+RUN useradd -d /home/kiosk -g users -m kiosk
 
 # *** Enable Systemd ***
 ENV INITSYSTEM on
