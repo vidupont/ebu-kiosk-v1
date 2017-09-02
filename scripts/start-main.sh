@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-02T15:34:33+02:00
+# @Last modified time: 2017-09-02T16:05:51+02:00
 
 
 
@@ -31,7 +31,7 @@ lsusb
 
 # !!! Turn off the Screen Saver - to be fixed !!!
 
-if [ "$KIOSK_SCREENSAVER" == "off" ]; then
+if [ "$KIOSK_SCREENSAVER" == "0" ]; then
   echo "Setting Screensaver off."
   xset s off
   xset -dpms
@@ -54,7 +54,13 @@ bash ${root_scripts}/update_repositories.sh
 umount /dev/shm && mount -t tmpfs shm /dev/shm
 
 # Start Node-Red Service
-bash ${root_nodered}/app/start.sh
+
+if [ "$RED_BACKEND" == "1" ]; then
+  echo "Starting NodeRed Backend"
+  bash ${root_nodered}/app/start.sh
+else
+  echo "NodeRed Backend disabled."
+fi
 
 # Start the interface application
 # Proximus Animation Logo
@@ -66,6 +72,7 @@ bash ${root_scripts}/proximus_logo.sh
 # Start the X Session with limited app frontend
 # if KIOSK_MODE is set to "browser", chromium is started with URL bar
 # Chromium command flags : https://peter.sh/experiments/chromium-command-line-switches/
+rm /tmp/.X0-lock &>/dev/null || true
 
 echo "Starting Kiosk Front-End:"
 
@@ -110,6 +117,13 @@ case $KIOSK_MODE in
      echo " $FRONTEND"
      startx $FRONTEND
      ;;
+
+  electron)
+    FRONTEND="$root_app/node_modules/electron/dist/electron $root_app"
+    echo "-- ElectronJS mode:"
+    echo " $FRONTEND"
+    startx $FRONTEND
+    ;;
 
   test)
     echo "-- Test mode:"

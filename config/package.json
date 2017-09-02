@@ -25,7 +25,11 @@
   "dependencies": {
     "express":"*",
     "socket.io":"*",
-    "omxcontrol":"*"
+    "omxcontrol":"*",
+    "electron":"*",
+    "react":"*",
+    "react-dom":"*",
+    "require-rebuild":"*"
   },
   "author": "Vincent Dupont",
   "license": "",
