@@ -4,7 +4,7 @@
  * @Email:  vidupont@gmail.com
  * @Filename: main.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-09-02T18:26:50+02:00
+ * @Last modified time: 2017-09-02T20:54:40+02:00
  */
 
 /* This is the Main script for the Kiosk frontend */
@@ -22,8 +22,8 @@ const electronConfig = {
   EJS_FRONT_FRAME: process.env.EJS_FRONT_FRAME === '1' ? 1 : 0,
   EJS_FRONT_KIOSK: process.env.EJS_FRONT_KIOSK === '1' ? 1 : 0,
   EJS_FRONT_NODE: process.env.EJS_FRONT_NODE === '1' ? 1 : 0,
-  EJS_FRONT_WIDTH: parseInt(process.env.EJS_FRONT_WIDTH || 800, 10),
-  EJS_FRONT_HEIGHT: parseInt(process.env.EJS_FRONT_HEIGHT || 600, 10),
+  EJS_FRONT_WIDTH: parseInt(process.env.KIOSK_WIDTH || 800, 10),
+  EJS_FRONT_HEIGHT: parseInt(process.env.KIOSK_HEIGHT || 600, 10),
   EJS_FRONT_TITLE: process.env.EJS_FRONT_TITLE || 'RESIN.IO',
   EJS_FRONT_CONSOLE: process.env.EJS_FRONT_CONSOLE === '1' ? 1 : 0,
   KIOSK_URL: process.env.KIOSK_URL || `file:///${path.join(__dirname, 'build', 'index.html')}`,
