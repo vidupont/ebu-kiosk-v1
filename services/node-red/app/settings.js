@@ -4,7 +4,7 @@
  * @Email:  vidupont@gmail.com
  * @Filename: settings.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-09-02T14:06:38+02:00
+ * @Last modified time: 2017-09-02T14:56:36+02:00
  */
 
 /**
@@ -29,7 +29,7 @@ var fs = require("fs");
 
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
-    uiPort: process.env.RED_PORT || 80,
+    uiPort: process.env.RED_PORT || 1880,
 
     // By default, the Node-RED UI accepts connections on all IPv4 interfaces.
     // The following property can be used to listen on a specific interface. For
