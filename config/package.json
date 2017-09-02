@@ -25,7 +25,16 @@
   "dependencies": {
     "express":"*",
     "socket.io":"*",
-    "omxcontrol":"*"
+    "omxcontrol":"*",
+    "serialport":"*",
+    "node-red":"*",
+    "node-red-contrib-resinio":"*",
+    "node-red-dashboard":"*",
+    "node-red-contrib-spark":"*",
+    "node-red-contrib-gpio":"*",
+    "node-red-contrib-blynk-websockets":"*",
+    "node-red-node-arduino":"*",
+    "gulp":"*"
   },
   "author": "Vincent Dupont",
   "license": "",
@@ -38,6 +47,5 @@
     "strict": true
   },
   "devDependencies": {
-
   }
 }
