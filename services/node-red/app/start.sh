@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T11:50:55+02:00
+# @Last modified time: 2017-09-02T14:09:16+02:00
 
 
 
@@ -18,7 +18,6 @@ mkdir -p ${root_nodered_data}/flows || true
 mkdir -p ${root_nodered_data}/nodes || true
 
 cp ${root_nodered}/app/flows/* ${root_nodered_data}/flows
-#mv /SERVICES/node-red/kioskflows.json /data/node-red/user/
 
 # Start app
-#node-red --settings ${root_nodered}/app/settings.js &
+node-red --settings ${root_nodered}/app/settings.js &

@@ -4,7 +4,7 @@
  * @Email:  vidupont@gmail.com
  * @Filename: settings.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-08-10T13:19:47+02:00
+ * @Last modified time: 2017-09-02T14:06:38+02:00
  */
 
 /**
@@ -199,20 +199,20 @@ module.exports = {
     editorTheme: {
         page: {
             title: "resin.io Node-RED",
-            favicon: process.env.RED_ROOT + "/app/assets/favicon.ico"
+            favicon: process.env.root_nodered + "/app/assets/favicon.ico"
         },
         header: {
             title: "resin.io Node-RED",
-            image: process.env.RED_ROOT + "/app/assets/resin_logo.png", // or null to remove image
+            image: process.env.root_nodered + "/app/assets/resin_logo.png", // or null to remove image
             url: "https://resin.io"
         },
         deployButton: {
             type: "simple",
             label: "Deploy",
-            icon: process.env.RED_ROOT + "/app/assets/favicon.ico" // or null to remove image
+            icon: process.env.root_nodered + "/app/assets/favicon.ico" // or null to remove image
         },
         login: {
-            image: process.env.RED_ROOT + "/app/assets/resin_logo.png" // a 256x256 image
+            image: process.env.root_nodered + "/app/assets/resin_logo.png" // a 256x256 image
         }
     },
     // Configure the logging output
