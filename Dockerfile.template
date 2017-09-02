@@ -83,7 +83,7 @@ RUN JOBS=MAX npm install --production --silent \
 RUN JOBS=MAX npm install -g --production --silent gulp
 #RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
 
-
+# --- Install additional packages from json file ---
 RUN JOBS=MAX npm install
 
 # --- Clean npm cache and tmp files
@@ -130,7 +130,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # *** Copy the Container folders ***
 WORKDIR /
-RUN mkdir -p ${root_backend}
+#RUN mkdir -p ${root_backend}
 COPY /scripts ${root_scripts}
 COPY /services/node-red ${root_nodered}
 
