@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-02T17:10:46+02:00
+# @Last modified time: 2017-09-02T21:17:45+02:00
 
 
 
@@ -119,7 +119,7 @@ case $KIOSK_MODE in
      ;;
 
   electron)
-    FRONTEND="$root_app/node_modules/electron/dist/electron $root_app"
+    FRONTEND="$root_app/node_modules/electron/dist/electron $root_app --enable-logging"
     echo "-- ElectronJS mode:"
     echo " $FRONTEND"
     startx $FRONTEND
