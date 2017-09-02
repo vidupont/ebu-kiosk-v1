@@ -20,6 +20,7 @@
 # -
 #
 # Folders:
+# - /app : root folder for kiosk apps
 # - /app/nodejs : root folder for nodejs framework
 # - /app/node-red : root folder for node-red framework
 # - /app/backend : root folder for apps backend / scripts
@@ -61,26 +62,29 @@ ENV root_framework_semanticui /
 
 # *** Build the first image layer ***
 
-# --- Install the Package.json
+# --- Install the Package.json : backend services
 WORKDIR ${root_app}
 COPY /config/package.json .
 
 # --- Install node-red and required nodes
 WORKDIR ${root_app}
 
-RUN JOBS=MAX npm install -g --production --silent \
-  serialport \
-  node-red node-red-contrib-resinio \
-  node-red-dashboard \
-  node-red-contrib-spark \
-  node-red-contrib-gpio \
-  node-red-contrib-blynk-websockets \
-  node-red-node-arduino
+# - Added into package.json
+#RUN JOBS=MAX npm install -g --production --silent \
+#  serialport \
+#  node-red node-red-contrib-resinio \
+#  node-red-dashboard \
+#  node-red-contrib-spark \
+#  node-red-contrib-gpio \
+#  node-red-contrib-blynk-websockets \
+#  node-red-node-arduino
 
 # --- Install Semantic UI ---
-RUN JOBS=MAX npm install -g --production --silent gulp
+#RUN JOBS=MAX npm install -g --production --silent gulp
 #RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
 
+
+RUN JOBS=MAX npm install
 
 # --- Clean npm cache and tmp files
 RUN	npm cache clean --force && rm -rf /tmp/*
@@ -128,7 +132,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /
 RUN mkdir -p ${root_backend}
 COPY /scripts ${root_scripts}
-#COPY /services/platformio ${root_platformio}
 COPY /services/node-red ${root_nodered}
 
 # --- Touchscreen calibration ---

@@ -23,6 +23,9 @@
     "ebu"
   ],
   "dependencies": {
+    "express":"*",
+    "socket.io":"*",
+    "omxcontrol":"*"
   },
   "author": "Vincent Dupont",
   "license": "",
