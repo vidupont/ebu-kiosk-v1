@@ -4,7 +4,7 @@
  * @Email:  vidupont@gmail.com
  * @Filename: main.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-09-02T16:37:46+02:00
+ * @Last modified time: 2017-09-02T18:26:50+02:00
  */
 
 /* This is the Main script for the Kiosk frontend */
@@ -43,8 +43,8 @@ if (electronConfig.EJS_FRONT_TOUCH_SIMULATE) {
 if (process.env.NODE_ENV === 'development') {
   console.log('Running in development mode');
   Object.assign(electronConfig, {
-    EJS_FRONT_HEIGHT: 600,
-    EJS_FRONT_WIDTH: 800,
+    EJS_FRONT_HEIGHT: 1500,
+    EJS_FRONT_WIDTH: 1000,
     EJS_FRONT_KIOSK: 0,
     EJS_FRONT_CONSOLE: 1,
     EJS_FRONT_FRAME: 1,
