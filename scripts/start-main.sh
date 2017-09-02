@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-02T09:41:06+02:00
+# @Last modified time: 2017-09-02T15:34:33+02:00
 
 
 
@@ -54,7 +54,7 @@ bash ${root_scripts}/update_repositories.sh
 umount /dev/shm && mount -t tmpfs shm /dev/shm
 
 # Start Node-Red Service
-#bash ${root_nodered}/app/start.sh
+bash ${root_nodered}/app/start.sh
 
 # Start the interface application
 # Proximus Animation Logo
