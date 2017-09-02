@@ -145,7 +145,7 @@ COPY /services/platformio/platformio.service /etc/systemd/system/platformio.serv
 
 
 # *** Setup X Environment ***
-COPY /config/lxde-autostart /etc/xdg/lxsession/LXDE/autostart
+
 
 # *** Setup Kiosk front-end User ***
 RUN useradd -d /home/kiosk -g users -m kiosk
