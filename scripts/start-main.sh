@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-01T22:51:26+02:00
+# @Last modified time: 2017-09-02T09:34:33+02:00
 
 
 
@@ -29,8 +29,7 @@ lsusb
 #echo "Audio Device information:"
 #amixer
 
-# Turn off the Screen Saver
-
+# !!! Turn off the Screen Saver - to be fixed !!!
 
 if [ "$KIOSK_SCREENSAVER" == "off" ]; then
   echo "Setting Screensaver off."
@@ -66,6 +65,7 @@ bash ${root_scripts}/proximus_logo.sh
 # if KIOSK_MODE not set to "admin" then ...
 # Start the X Session with limited app frontend
 # if KIOSK_MODE is set to "browser", chromium is started with URL bar
+# Chromium command flags : https://peter.sh/experiments/chromium-command-line-switches/
 
 echo "Starting Kiosk Front-End:"
 
@@ -73,15 +73,19 @@ case $KIOSK_MODE in
   admin|ADMIN) ;;
 
   kiosk|KIOSK)
-    FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
-         --kiosk \
-         --ignore-gpu-blacklist \
-         --cast-initial-screen-height=$KIOSK_HEIGHT \
-         --cast-initial-screen-width=$KIOSK_WIDTH \
-         --enable-accelerated-2d-canvas \
-         --window-position=$KIOSK_X,$KIOSK_Y \
-         --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
-         $KIOSK_URL"
+  FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+      --ignore-gpu-blacklist \
+      --enable-accelerated-2d-canvas \
+      --enable-gpu-rasterization \
+      --enable-gpu-compositing \
+      --enable-native-gpu-memory-buffers \
+      --enable-gpu-memory-buffer-compositor-resources \
+      --enable-gpu-memory-buffer-video-frames \
+      --cast-initial-screen-height=$KIOSK_HEIGHT \
+      --cast-initial-screen-width=$KIOSK_WIDTH \
+      --window-position=$KIOSK_X,$KIOSK_Y \
+      --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
+      $KIOSK_URL"
 
     echo "-- Kiosk mode:"
     echo " $FRONTEND"
@@ -112,7 +116,7 @@ case $KIOSK_MODE in
     startx /usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
     --window-position=$KIOSK_X,$KIOSK_Y \
     --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
-    --kiosk www.google.be
+    --kiosk $KIOSK_URL
     ;;
   *)
      echo "-- Kiosk Mode not set or incorrect."
