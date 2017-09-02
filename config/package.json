@@ -26,6 +26,7 @@
     "express":"*",
     "socket.io":"*",
     "omxcontrol":"*",
+    "gulp":"*",
     "electron":"*",
     "react":"*",
     "react-dom":"*",

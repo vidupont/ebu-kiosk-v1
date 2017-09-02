@@ -80,7 +80,7 @@ RUN JOBS=MAX npm install --production --silent \
   node-red-node-arduino
 
 # --- Install Semantic UI ---
-RUN JOBS=MAX npm install -g --production --silent gulp
+#RUN JOBS=MAX npm install -g --production --silent gulp
 #RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
 
 # --- Install additional packages from json file ---
@@ -133,6 +133,7 @@ WORKDIR /
 #RUN mkdir -p ${root_backend}
 COPY /scripts ${root_scripts}
 COPY /services/node-red ${root_nodered}
+COPY /applications ${root_app}
 
 # --- Touchscreen calibration ---
 COPY ./config/99-calibration.conf /usr/share/X11/xorg.conf.d

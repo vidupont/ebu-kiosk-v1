@@ -4,7 +4,7 @@
  * @Email:  vidupont@gmail.com
  * @Filename: main.js
  * @Last modified by:   vincent
- * @Last modified time: 2017-09-02T16:19:09+02:00
+ * @Last modified time: 2017-09-02T16:37:46+02:00
  */
 
 /* This is the Main script for the Kiosk frontend */
@@ -26,7 +26,7 @@ const electronConfig = {
   EJS_FRONT_HEIGHT: parseInt(process.env.EJS_FRONT_HEIGHT || 600, 10),
   EJS_FRONT_TITLE: process.env.EJS_FRONT_TITLE || 'RESIN.IO',
   EJS_FRONT_CONSOLE: process.env.EJS_FRONT_CONSOLE === '1' ? 1 : 0,
-  EJS_FRONT_URL: process.env.EJS_FRONT_URL || `file:///${path.join(__dirname, 'build', 'index.html')}`,
+  KIOSK_URL: process.env.KIOSK_URL || `file:///${path.join(__dirname, 'build', 'index.html')}`,
   EJS_FRONT_ZOOM: parseFloat(process.env.EJS_FRONT_ZOOM || 1.0),
   EJS_FRONT_OVERLAY_SCROLLBARS: process.env.EJS_FRONT_CONSOLE === '1' ? 1 : 0,
 };
@@ -82,5 +82,5 @@ app.on('ready', () => {
   }
 
   // the big red button, here we go
-  window.loadURL(electronConfig.EJS_FRONT_URL);
+  window.loadURL(electronConfig.KIOSK_URL);
 });
