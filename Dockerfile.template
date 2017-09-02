@@ -86,6 +86,9 @@ RUN JOBS=MAX npm install --production --silent \
 # --- Install additional packages from json file ---
 RUN JOBS=MAX npm install
 
+# --- Install ElectronJS ---
+RUN npm install electron@beta --save-dev 
+
 # --- Clean npm cache and tmp files
 RUN	npm cache clean --force && rm -rf /tmp/*
 

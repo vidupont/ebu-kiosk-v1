@@ -27,7 +27,6 @@
     "socket.io":"*",
     "omxcontrol":"*",
     "gulp":"*",
-    "electron@beta":"*",
     "react":"*",
     "react-dom":"*",
     "require-rebuild":"*"
