@@ -122,7 +122,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # 3/ Chromium
 	lsb-release \
-	chromium-browser \
+#	chromium-browser \
 #	rpi-chromium-mods \
 # 4/ OMXPlayer
 #  omxplayer
