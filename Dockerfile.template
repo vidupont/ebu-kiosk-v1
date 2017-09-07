@@ -98,7 +98,7 @@ RUN	npm cache clean --force && rm -rf /tmp/*
 
 
 # *** Install additional packages ***
-COPY /config/raspi-ui.list /etc/apt/sources.list.d
+#COPY /config/raspi-ui.list /etc/apt/sources.list.d
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   apt-utils \
