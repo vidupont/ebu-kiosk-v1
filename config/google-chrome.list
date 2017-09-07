@@ -1,0 +1,2 @@
+# Required to install the Chrome packages
+deb https://dl.google.com/linux/chrome/deb/ stable main

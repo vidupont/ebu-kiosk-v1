@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-02T21:17:45+02:00
+# @Last modified time: 2017-09-07T16:28:02+02:00
 
 
 
@@ -80,7 +80,7 @@ case $KIOSK_MODE in
   admin|ADMIN) ;;
 
   kiosk|KIOSK)
-  FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+  FRONTEND="/usr/bin/google-chrome --disable-infobars --no-sandbox --no-first-run \
       --ignore-gpu-blacklist \
       --enable-accelerated-2d-canvas \
       --enable-gpu-rasterization \
@@ -100,7 +100,7 @@ case $KIOSK_MODE in
     ;;
 
   browser|BROWSER)
-    FRONTEND="/usr/bin/chromium-browser --disable-infobars --no-sandbox --no-first-run \
+    FRONTEND="/usr/bin/google-chrome --disable-infobars --no-sandbox --no-first-run \
         --ignore-gpu-blacklist \
         --enable-accelerated-2d-canvas \
         --enable-gpu-rasterization \

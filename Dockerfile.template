@@ -99,9 +99,12 @@ RUN	npm cache clean --force && rm -rf /tmp/*
 
 # *** Install additional packages ***
 #COPY /config/raspi-ui.list /etc/apt/sources.list.d
+COPY /config/google-chrome.list /etc/apt/sources.list.d
+
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   apt-utils \
+  apt-transport-https \
   git-core \
 	python \
 	mc \
@@ -121,11 +124,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #	 fluxbox \
 
 # 3/ Chromium
-	lsb-release
+#	lsb-release
 #	chromium-browser \
 #	rpi-chromium-mods \
-# 4/ OMXPlayer
-#  omxplayer
+# 4/ VLC
+VLC
 
 # --- Clean apt cache and tmp files
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -165,4 +168,4 @@ RUN systemctl enable /etc/systemd/system/platformio.service
 WORKDIR /
 
 # --- RUN the Main Application ---
-CMD ["bash", ""]
+CMD ["bash", "/scripts/start-main.sh"]
