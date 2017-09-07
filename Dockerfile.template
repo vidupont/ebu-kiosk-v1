@@ -97,14 +97,17 @@ RUN	npm cache clean --force && rm -rf /tmp/*
 # COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
 
+# Add apt-get packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  apt-utils \
+  apt-transport-https
+
 # *** Install additional packages ***
 #COPY /config/raspi-ui.list /etc/apt/sources.list.d
 COPY /config/google-chrome.list /etc/apt/sources.list.d
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  apt-utils \
-  apt-transport-https \
   git-core \
 	python \
 	mc \
