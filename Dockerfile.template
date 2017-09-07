@@ -75,7 +75,7 @@ RUN JOBS=MAX npm install --production --silent \
   node-red node-red-contrib-resinio \
   node-red-dashboard \
   node-red-contrib-spark \
-  node-red-contrib-gpio \
+  #node-red-contrib-gpio \
   node-red-contrib-blynk-websockets \
   node-red-node-arduino
 
@@ -123,7 +123,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 3/ Chromium
 	lsb-release \
 	chromium-browser \
-	rpi-chromium-mods \
+#	rpi-chromium-mods \
 # 4/ OMXPlayer
   omxplayer
 
