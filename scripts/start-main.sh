@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-07T16:28:02+02:00
+# @Last modified time: 2017-09-07T17:12:33+02:00
 
 
 
@@ -92,6 +92,7 @@ case $KIOSK_MODE in
       --cast-initial-screen-width=$KIOSK_WIDTH \
       --window-position=$KIOSK_X,$KIOSK_Y \
       --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
+      --kiosk
       $KIOSK_URL"
 
     echo "-- Kiosk mode:"
@@ -132,6 +133,11 @@ case $KIOSK_MODE in
     --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT \
     --kiosk $KIOSK_URL
     ;;
+
+  bash)
+    echo "-- Shell Mode:"
+    startx xterm
+
   *)
      echo "-- Kiosk Mode not set or incorrect."
   ;;
