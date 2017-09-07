@@ -133,6 +133,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 4/ VLC
 VLC
 
+# Install Google Chrome
+RUN apt-get install google-chrome-stable --force-yes
+
 # --- Clean apt cache and tmp files
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
