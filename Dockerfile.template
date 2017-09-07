@@ -62,6 +62,18 @@ ENV root_framework_semanticui /
 
 # *** Build the first image layer ***
 
+# Add apt-get packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  apt-utils \
+  apt-transport-https
+
+# Add Nodejs & npm
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  nodejs \
+  build-essential
+
+
 # --- Install the Package.json : backend services
 WORKDIR ${root_app}
 COPY /config/package.json .
@@ -70,14 +82,14 @@ COPY /config/package.json .
 WORKDIR ${root_app}
 
 # - Added into package.json
-#RUN JOBS=MAX npm install --production --silent \
-#  serialport \
-#  node-red node-red-contrib-resinio \
-#  node-red-dashboard \
-#  node-red-contrib-spark \
+RUN JOBS=MAX npm install --production --silent \
+  serialport \
+  node-red node-red-contrib-resinio \
+  node-red-dashboard \
+  node-red-contrib-spark \
   #node-red-contrib-gpio \
-#  node-red-contrib-blynk-websockets \
-#  node-red-node-arduino
+  node-red-contrib-blynk-websockets \
+  node-red-node-arduino
 
 # --- Install Semantic UI ---
 #RUN JOBS=MAX npm install -g --production --silent gulp
@@ -87,25 +99,21 @@ WORKDIR ${root_app}
 #RUN JOBS=MAX npm install
 
 # --- Install ElectronJS ---
-#RUN npm install electron --save-exact --save-dev
+RUN npm install electron --save-exact --save-dev
 
 # --- Clean npm cache and tmp files
-#RUN	npm cache clean --force && rm -rf /tmp/*
+RUN	npm cache clean --force && rm -rf /tmp/*
 
 # *** Local final Image from Resin repository ***
 # FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 # COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
 
-# Add apt-get packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  apt-utils \
-  apt-transport-https
 
 # *** Install additional packages ***
 #COPY /config/raspi-ui.list /etc/apt/sources.list.d
 COPY /config/google-chrome.list /etc/apt/sources.list.d
-
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   git-core \
