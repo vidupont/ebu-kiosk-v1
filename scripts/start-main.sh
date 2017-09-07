@@ -3,7 +3,7 @@
 # @Email:  vidupont@gmail.com
 # @Filename: start.sh
 # @Last modified by:   vincent
-# @Last modified time: 2017-09-07T17:27:18+02:00
+# @Last modified time: 2017-09-07T19:23:31+02:00
 
 
 
@@ -118,6 +118,18 @@ case $KIOSK_MODE in
      echo " $FRONTEND"
      startx $FRONTEND
      ;;
+
+  default)
+  FRONTEND="/usr/bin/google-chrome --disable-infobars --no-sandbox --no-first-run \
+      --cast-initial-screen-height=$KIOSK_HEIGHT \
+      --cast-initial-screen-width=$KIOSK_WIDTH \
+      --window-position=$KIOSK_X,$KIOSK_Y \
+      --window-size=$KIOSK_WIDTH,$KIOSK_HEIGHT"
+
+   echo "-- Browser default mode:"
+   echo " $FRONTEND"
+   startx $FRONTEND
+   ;;
 
   electron)
     FRONTEND="$root_app/node_modules/electron/dist/electron $root_app --enable-logging"
