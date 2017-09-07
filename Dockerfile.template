@@ -65,7 +65,8 @@ ENV root_framework_semanticui /
 # Add apt-get packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
   apt-utils \
-  apt-transport-https
+  apt-transport-https \
+  wget
 
 # Add Nodejs & npm
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
