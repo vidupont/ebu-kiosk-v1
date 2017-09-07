@@ -122,7 +122,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #  rfkill \
 
 # 2/ Minimum Xorg environment
-	 xorg \
+	 xorg
 #	 lxde \
 #	 fluxbox \
 
@@ -131,7 +131,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #	chromium-browser \
 #	rpi-chromium-mods \
 # 4/ VLC
-VLC
+#VLC
 
 # Install Google Chrome
 RUN apt-get install google-chrome-stable --force-yes
