@@ -125,7 +125,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	chromium-browser \
 #	rpi-chromium-mods \
 # 4/ OMXPlayer
-  omxplayer
+#  omxplayer
 
 # --- Clean apt cache and tmp files
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
