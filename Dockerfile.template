@@ -120,6 +120,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   git-core \
 	python \
 	mc \
+  dbus \
 
 # 1/ For Wifi-connect
 #  dnsmasq \
@@ -141,6 +142,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #	rpi-chromium-mods \
 # 4/ VLC
 #VLC
+
+
 
 # Install Google Chrome
 RUN apt-get install google-chrome-stable --force-yes
