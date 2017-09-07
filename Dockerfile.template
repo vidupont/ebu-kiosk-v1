@@ -97,13 +97,13 @@ WORKDIR ${root_app}
 #RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
 
 # --- Install additional packages from json file ---
-#RUN JOBS=MAX npm install
+RUN JOBS=MAX npm install
 
 # --- Install ElectronJS ---
-#RUN npm install electron --save-exact --save-dev
+RUN npm install electron --save-exact --save-dev
 
 # --- Clean npm cache and tmp files
-#RUN	npm cache clean --force && rm -rf /tmp/*
+RUN	npm cache clean --force && rm -rf /tmp/*
 
 # *** Local final Image from Resin repository ***
 # FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
