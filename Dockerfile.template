@@ -121,6 +121,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	python \
 	mc \
   dbus \
+  bluetooth \
 
 # 1/ For Wifi-connect
 #  dnsmasq \
