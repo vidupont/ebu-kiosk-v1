@@ -196,4 +196,4 @@ RUN systemctl enable /etc/systemd/system/keyboard.service
 WORKDIR /
 
 # --- RUN the Main Application ---
-CMD ["bash", "'${root_scripts}'/start-main.sh"]
+CMD ["bash", "/scripts/start-main.sh"]
