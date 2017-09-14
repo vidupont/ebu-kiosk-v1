@@ -122,7 +122,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	mc \
   pciutils \
   dbus \
-  bluetooth \
+  #bluetooth \
+  bluez \
+  bluez-firmware \
 
 # 1/ For Wifi-connect
 #  dnsmasq \
