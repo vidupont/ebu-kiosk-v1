@@ -1,0 +1,17 @@
+[Unit]
+Description=Autostart Bluetooth Keyboard Service
+Documentation=https://wiki.archlinux.org/index.php/Bluetooth_Keyboard
+ConditionPathExists=/etc/bluetooth/keyboard.conf
+ConditionPathExists=/usr/bin/hcitool
+ConditionPathExists=/bin/hciconfig
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/bluetooth/keyboard.conf
+ExecStart=
+ExecStart=/bin/hciconfig ${HCIDEVICE} up
+# ignore errors on connect, spurious problems with bt? so start next command with -
+ExecStart=-/usr/bin/hcitool cc ${BTKBDMAC}
+
+[Install]
+WantedBy=bluetooth.target
