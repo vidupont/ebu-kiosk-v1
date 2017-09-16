@@ -44,126 +44,156 @@
 # Info: Resin Base Images : https://docs.resin.io/runtime/resin-base-images/
 # ------------------------------------------------------------------------------
 
-# *** Base Image from Resin repository ***
+# --== Base Image from Resin repository ==--
 FROM resin/%%RESIN_MACHINE_NAME%%-debian:stretch AS builder
 
-# *** Base folders ***
+
+
+# --== Set Environment Variables ==--
+# 0.Variables from Resin Env with default value (if not present)
+
+
+# 1.Base folders ***
 ENV root_app /app
-ENV root_nodejs /app/nodejs
-ENV root_nodered /app/nodered
-ENV root_platformio /app/platformio
-ENV root_backend /app/backend
-ENV root_frontend /app/frontend
+ENV root_data /data
+ENV root_nodejs ${root_app}/nodejs
+ENV root_nodered ${root_app}/nodered
+ENV root_platformio ${root_app}/platformio
+ENV root_backend ${root_app}/backend
+ENV root_frontend ${root_app}/frontend
 ENV root_scripts /scripts
-ENV root_nodered_data /data/nodered
-ENV root_medias /data/medias
-ENV root_framework_semanticui /
+ENV root_nodered_data ${root_data}/nodered
+ENV root_medias ${root_data}/medias
+#ENV root_framework_semanticui /
+ENV root_arduino ${root_platformio}/boards
+
+# 2. Other variables
+# --- Connect DBUS to Host : do I need this ?
+# ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
 
-# *** Build the first image layer ***
+# --== Copy scripts and configuration files
+# 1. Package.json
+WORKDIR ${root_app}
+COPY /config/package.json .
 
-# Add apt-get packages
+
+
+# --== Install the packages required into first layer image ==--
+# 1. APT packages & utils
 RUN apt-get update && apt-get install -y --no-install-recommends \
   apt-utils \
   apt-transport-https \
   wget
 
-# Add Nodejs & npm
+# 2. Set additional repositories
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+COPY /config/google-chrome.list /etc/apt/sources.list.d
+
+# 3. Google Chrome
+RUN apt-get install google-chrome-stable --force-yes
+
+# 4. Nodejs and NPM
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get update && apt-get install -y --no-install-recommends \
   nodejs \
   build-essential
 
 
-# --- Install the Package.json : backend services
-WORKDIR ${root_app}
-COPY /config/package.json .
 
-# --- Install node-red and required nodes
+# --== Nodejs Packages ==--
+# 1. Load the modules from package.json
 WORKDIR ${root_app}
+RUN JOBS=MAX npm install --silent \
 
-# - Added into package.json
+# 2. Node-Red modules
 #RUN JOBS=MAX npm install --production --silent \
-#  serialport \
-#  node-red node-red-contrib-resinio \
-#  node-red-dashboard \
-#  node-red-contrib-spark \
-  #node-red-contrib-gpio \
-#  node-red-contrib-blynk-websockets \
-#  node-red-node-arduino
+  serialport \
+  node-red node-red-contrib-resinio \
+  node-red-dashboard \
+  node-red-contrib-spark \
+  node-red-contrib-blynk-websockets \
+  node-red-node-arduino \
+
+# 3. Electronjs : installed via package.json
+#RUN npm install electron --save-exact --save-dev
 
 # --- Install Semantic UI ---
 #RUN JOBS=MAX npm install -g --production --silent gulp
 #RUN JOBS=MAX npm install -g --production --silent semantic-ui --save
 
-# --- Install additional packages from json file ---
-RUN JOBS=MAX npm install
 
-# --- Install ElectronJS ---
-RUN npm install electron --save-exact --save-dev
-
-# --- Clean npm cache and tmp files
+# 6. Clean npm cache and tmp files
 RUN	npm cache clean --force && rm -rf /tmp/*
 
-# *** Local final Image from Resin repository ***
+
+
+# --== Create the second layer image with copy of compiled components (reduce size)
+# ** TBD : Check what need to be copied **
 # FROM resin/%%RESIN_MACHINE_NAME%%-node:slim
 # COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
 
 
 
-# *** Install additional packages ***
-#COPY /config/raspi-ui.list /etc/apt/sources.list.d
-COPY /config/google-chrome.list /etc/apt/sources.list.d
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-
+# --== Install additional packages ==--
+# 1. Utilities
 RUN apt-get update && apt-get install -y --no-install-recommends \
   git-core \
 	python \
 	mc \
   pciutils \
+
+# 2. Core Services
   #dbus \
+
+# 2. Bluetooth support
   #bluetooth \
   bluez \
 
-# 1/ For Wifi-connect
-#  dnsmasq \
-#  hostapd \
-#  iproute2 \
-#  iw \
-#  libdbus-1-dev \
-#  libexpat-dev \
-#  rfkill \
+# 3. Libraries (to be checked, remove unecessary later)
+  libdbus-1-dev \
+  libgtk2.0-dev \
+  libnotify-dev \
+  libgnome-keyring-dev \
+  libgconf2-dev \
+  libasound2-dev \
+  libcap-dev \
+  libcups2-dev \
+  libxtst-dev \
+  libxss1 \
+  libnss3-dev \
+  libexpat-dev \
 
-# 2/ Minimum Xorg environment
+
+# 4. Xorg & Windows Manager
   xserver-xorg-core \
   xserver-xorg-input-all \
   xserver-xorg-video-fbdev \
-  xorg
-#	 lxde \
-#	 fluxbox \
+  xorg \
+  fbset \
+  fluxbox \
 
-# 3/ Chromium
-#	lsb-release
-#	chromium-browser \
-#	rpi-chromium-mods \
-# 4/ VLC
-#VLC
-
-
-
-# Install Google Chrome
-RUN apt-get install google-chrome-stable --force-yes
-
-# --- Clean apt cache and tmp files
+# --==  Clean Caches and TMP files ==--
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-# *** Copy the Container folders ***
+# --== Copy Applications & Services folders ==--
 WORKDIR /
 #RUN mkdir -p ${root_backend}
+
+# 1. Initialisation scripts (run by start-main.sh)
 COPY /scripts ${root_scripts}
+
+# 2. Services
 COPY /services/node-red ${root_nodered}
+
+# 3. Applications
 COPY /applications ${root_app}
+
+# 4. Arduino Sketches
+COPY /arduino
+
+
 
 # --- Bluetooth Keyboard ---
 COPY /services/keyboard.conf /etc/bluetooth
@@ -177,6 +207,10 @@ COPY /services/keyboard.service /etc/systemd/system/
 WORKDIR ${root_platformio}
 RUN python ${root_scripts}/get-platformio.py
 COPY /services/platformio/platformio.service /etc/systemd/system/platformio.service
+
+
+# *** Load Arduino Sketeches ***
+
 
 
 # *** Setup X Environment ***

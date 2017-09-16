@@ -25,10 +25,10 @@
   "dependencies": {
     "express":"*",
     "socket.io":"*",
-    "omxcontrol":"*",
     "gulp":"*",
     "react":"*",
     "react-dom":"*",
+    "electron": "*",
     "require-rebuild":"*"
   },
   "author": "Vincent Dupont",
